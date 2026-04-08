@@ -1,206 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Bridge</title>
-  <style>
-    :root {
-      --bg: #0b0b0b;
-      --fg: #d6b16a;
-      --fg-dim: rgba(214, 177, 106, 0.65);
-      --line: #6f5829;
-      --line-bright: rgba(212, 175, 55, 0.4);
-      --line-focus: #d4af37;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bridge</title>
 
-    * {
-      box-sizing: border-box;
-    }
+<style>
+:root {
+  --bg: #0b0b0b;
+  --fg: #d6b16a;
+  --fg-dim: rgba(214,177,106,0.65);
+  --line: #6f5829;
+  --line-bright: rgba(212,175,55,0.4);
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: Garamond, Georgia, serif;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Garamond, serif;
+  text-align: center;
+}
 
-    body {
-      text-align: center;
-      padding: 100px 20px;
-    }
+body {
+  padding: 100px 20px;
+}
 
-    .wrap {
-      max-width: 760px;
-      margin: 0 auto;
-    }
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
 
-    h1 {
-      margin: 0 0 0.75rem;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      letter-spacing: 0.14em;
-      font-weight: normal;
-    }
+h1 {
+  font-size: 3rem;
+  letter-spacing: 0.15em;
+  font-weight: normal;
+}
 
-    h2 {
-      margin: 2.5rem 0 0.75rem;
-      font-size: 1.1rem;
-      letter-spacing: 0.12em;
-      font-weight: normal;
-    }
+h2 {
+  margin-top: 2.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: normal;
+}
 
-    p {
-      margin: 0.5rem 0;
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--fg);
-    }
+p {
+  margin: 0.5rem 0;
+}
 
-    .subtle {
-      color: var(--fg-dim);
-      letter-spacing: 0.06em;
-    }
+.subtle {
+  color: var(--fg-dim);
+}
 
-    .line {
-      margin: 2.5rem auto;
-      width: 220px;
-      height: 1px;
-      background: var(--line);
-    }
+.line {
+  margin: 2.5rem auto;
+  width: 200px;
+  height: 1px;
+  background: var(--line);
+}
 
-    a,
-    a:visited,
-    a:hover,
-    a:active {
-      color: var(--fg);
-      text-decoration: none;
-    }
+.button, .action {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 12px 24px;
+  border: 1px solid var(--fg);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: none;
+  color: var(--fg);
+}
 
-    .button,
-    .action {
-      display: inline-block;
-      padding: 12px 24px;
-      border: 1px solid var(--fg);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: opacity 0.3s ease;
-      cursor: pointer;
-      user-select: none;
-      background: transparent;
-      color: var(--fg);
-      font: inherit;
-    }
+.button:hover, .action:hover {
+  opacity: 0.7;
+}
 
-    .button:hover,
-    .action:hover {
-      opacity: 0.72;
-    }
+#access-panel {
+  max-width: 500px;
+  margin: 2rem auto 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+}
 
-    .button {
-      margin-top: 2rem;
-    }
+#access-panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  max-height: 1000px;
+}
 
-    #access-panel {
-      max-width: 500px;
-      margin: 2.25rem auto 0;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      pointer-events: none;
-      max-height: 0;
-      overflow: hidden;
-    }
+.channel {
+  margin-top: 1rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--line-bright);
+  border-bottom: 1px solid var(--line-bright);
+  word-break: break-word;
+}
 
-    #access-panel.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-      max-height: 1000px;
-    }
+.actions {
+  margin-top: 1.2rem;
+}
 
-    .channel {
-      margin-top: 1rem;
-      padding: 0.8rem 0;
-      border-top: 1px solid var(--line-bright);
-      border-bottom: 1px solid var(--line-bright);
-      letter-spacing: 0.05em;
-      word-break: break-word;
-    }
+.action {
+  margin: 0 5px;
+}
 
-    .actions {
-      margin-top: 1.25rem;
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    #status {
-      margin-top: 1rem;
-      min-height: 1.4rem;
-      color: var(--fg-dim);
-      letter-spacing: 0.08em;
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 640px) {
-      body {
-        padding: 72px 18px;
-      }
-
-      .line {
-        width: 160px;
-      }
-
-      .button,
-      .action {
-        padding: 11px 20px;
-      }
-    }
-  </style>
+#status {
+  margin-top: 1rem;
+  min-height: 1.5rem;
+  color: var(--fg-dim);
+  letter-spacing: 0.08em;
+  transition: opacity 0.3s ease;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <h1>THE BRIDGE</h1>
-    <p class="subtle">BridgeForensicLogic, LLC</p>
-    <p class="subtle">bridge@bridgeforensiclogic.com</p>
 
-    <div class="line"></div>
+<div class="wrap">
+  <h1>THE BRIDGE</h1>
+  <p class="subtle">BridgeForensicLogic, LLC</p>
+  <p class="subtle">bridge@bridgeforensiclogic.com</p>
 
-    <h2>NODE 001 — BASELINE</h2>
-    <p>Baseline established. Noise reduced.</p>
+  <div class="line"></div>
 
-    <button class="button" onclick="revealAccess()">REQUEST ACCESS</button>
+  <h2>NODE 001 — BASELINE</h2>
+  <p>Baseline established. Noise reduced.</p>
 
-    <div id="access-panel">
-      <div class="channel" id="channel-email">contact@bridgeforensiclogic.com</div>
+  <button class="button" onclick="revealAccess()">REQUEST ACCESS</button>
 
-      <div class="actions">
-        <button class="action" onclick="copyChannel()">COPY CHANNEL</button>
-        <a class="action" href="mailto:contact@bridgeforensiclogic.com?subject=Request%20Access">TRANSMIT</a>
-      </div>
-
-      <div id="status"></div>
+  <div id="access-panel">
+    <div class="channel" id="channel-email">
+      contact@bridgeforensiclogic.com
     </div>
+
+    <div class="actions">
+      <button class="action" onclick="copyChannel()">COPY CHANNEL</button>
+      <a class="action" href="mailto:contact@bridgeforensiclogic.com?subject=Request%20Access">TRANSMIT</a>
+    </div>
+
+    <div id="status"></div>
   </div>
+</div>
 
-  <script>
-    function revealAccess() {
-      document.getElementById('access-panel').classList.add('visible');
-      document.getElementById('status').textContent = '';
-    }
+<script>
+function revealAccess() {
+  const panel = document.getElementById('access-panel');
+  const status = document.getElementById('status');
 
-    function copyChannel() {
-      const email = document.getElementById('channel-email').textContent;
-      navigator.clipboard.writeText(email).then(() => {
-        document.getElementById('status').textContent = 'CHANNEL COPIED';
-      }).catch(() => {
-        document.getElementById('status').textContent = 'COPY FAILED';
-      });
-    }
-  </script>
+  status.textContent = "REQUEST RECEIVED";
+
+  setTimeout(() => {
+    status.textContent = "EVALUATING SIGNAL";
+  }, 600);
+
+  setTimeout(() => {
+    panel.classList.add('visible');
+    status.textContent = "CHANNEL AVAILABLE";
+  }, 1400);
+}
+
+function copyChannel() {
+  const email = document.getElementById('channel-email').textContent;
+  const status = document.getElementById('status');
+
+  navigator.clipboard.writeText(email).then(() => {
+    status.textContent = "CHANNEL ACQUIRED";
+
+    setTimeout(() => {
+      status.textContent = "AWAITING TRANSMISSION";
+    }, 1200);
+  }).catch(() => {
+    status.textContent = "TRANSMISSION ERROR";
+  });
+}
+</script>
+
 </body>
 </html>
