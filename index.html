@@ -94,7 +94,7 @@
       opacity: 0.72;
     }
 
-    #access-form {
+    #access-panel {
       max-width: 440px;
       margin: 2.25rem auto 0;
       text-align: left;
@@ -106,7 +106,7 @@
       overflow: hidden;
     }
 
-    #access-form.visible {
+    #access-panel.visible {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -117,6 +117,8 @@
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.55s ease, transform 0.55s ease;
+      margin-bottom: 1.25rem;
+      color: var(--fg);
     }
 
     .field.visible {
@@ -124,70 +126,29 @@
       transform: translateY(0);
     }
 
-    #access-form input,
-    #access-form textarea {
-      width: 100%;
-      display: block;
-      background: transparent;
-      color: var(--fg);
-      border: none;
-      border-bottom: 1px solid var(--line-bright);
-      border-radius: 0;
-      outline: none;
-      padding: 0.75rem 0;
-      margin: 0 0 1.35rem;
-      font: inherit;
-      font-size: 0.98rem;
-      line-height: 1.5;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-
-    #access-form textarea {
-      resize: vertical;
-      min-height: 90px;
-    }
-
-    #access-form input::placeholder,
-    #access-form textarea::placeholder {
-      color: var(--fg-dim);
-      opacity: 1;
-      letter-spacing: 0.04em;
-    }
-
-    #access-form input:focus,
-    #access-form textarea:focus {
-      border-bottom-color: var(--line-focus);
-    }
-
-    #access-form button {
-      background: none;
-      border: none;
-      border-bottom: 1px solid var(--line-bright);
-      color: var(--fg);
-      padding: 0 0 2px;
-      margin-top: 0.25rem;
-      cursor: pointer;
-      font: inherit;
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    #access-form button:hover {
-      opacity: 0.72;
-    }
-
-    #response-message {
-      display: none;
-      margin-top: 2.5rem;
+    .label {
       color: var(--fg-dim);
       letter-spacing: 0.08em;
-      line-height: 1.8;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
     }
 
-    #response-message.visible {
-      display: block;
+    .value {
+      border-bottom: 1px solid var(--line-bright);
+      padding: 0.6rem 0;
+      word-break: break-word;
+      font-size: 0.98rem;
+    }
+
+    .action-link {
+      display: inline-block;
+      margin-top: 0.25rem;
+      border-bottom: 1px solid var(--line-bright);
+      padding-bottom: 2px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.92rem;
     }
 
     @media (max-width: 640px) {
@@ -216,57 +177,36 @@
     <h2>NODE 001 — BASELINE</h2>
     <p>Baseline established. Noise reduced.</p>
 
-    <a class="button" href="#" onclick="revealForm(); return false;">REQUEST ACCESS</a>
+    <a class="button" href="#" onclick="revealAccess(); return false;">REQUEST ACCESS</a>
 
-    <div id="access-form">
-      <form action="https://formsubmit.co/contact@bridgeforensiclogic.com" method="POST">
-        <input type="hidden" name="_subject" value="Request Access">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://bridgeforensiclogic.com/?status=received">
+    <div id="access-panel">
+      <div class="field">
+        <div class="label">Channel</div>
+        <div class="value">contact@bridgeforensiclogic.com</div>
+      </div>
 
-        <div class="field">
-          <input type="text" name="name" placeholder="Name" required>
+      <div class="field">
+        <div class="label">Action</div>
+        <div class="value">
+          <a class="action-link" href="mailto:contact@bridgeforensiclogic.com?subject=Request%20Access">Transmit</a>
         </div>
-
-        <div class="field">
-          <input type="email" name="email" placeholder="Email" required>
-        </div>
-
-        <div class="field">
-          <textarea name="message" placeholder="Message" rows="5" required></textarea>
-        </div>
-
-        <div class="field">
-          <button type="submit">TRANSMIT</button>
-        </div>
-      </form>
-    </div>
-
-    <div id="response-message">
-      SIGNAL RECEIVED<br>
-      THE RECORD PERSISTS
+      </div>
     </div>
   </div>
 
   <script>
-    function revealForm() {
-      const form = document.getElementById('access-form');
-      if (!form.classList.contains('visible')) {
-        form.classList.add('visible');
+    function revealAccess() {
+      const panel = document.getElementById('access-panel');
+      if (!panel.classList.contains('visible')) {
+        panel.classList.add('visible');
 
-        const fields = form.querySelectorAll('.field');
+        const fields = panel.querySelectorAll('.field');
         fields.forEach((field, index) => {
           setTimeout(() => {
             field.classList.add('visible');
           }, 180 + (index * 180));
         });
       }
-    }
-
-    if (window.location.search.includes('status=received')) {
-      const msg = document.getElementById('response-message');
-      msg.classList.add('visible');
-      history.replaceState({}, document.title, window.location.pathname);
     }
   </script>
 </body>
