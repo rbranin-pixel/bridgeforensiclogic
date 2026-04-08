@@ -28,10 +28,29 @@
 
   <div class="line"></div>
 
-  <h2>FOLIA I — BASELINE</h2>
+  <h2>NODE 001 — BASELINE</h2>
   <p>Baseline established. Noise reduced.</p>
 
-<a class="button" href="mailto:contact@bridgeforensiclogic.com">REQUEST ACCESS</a>
+<a class="button" href="#" onclick="document.getElementById('access-form').style.display='block'; return false;">REQUEST ACCESS</a>
+<div id="access-form" style="display:none; margin-top: 2rem;">
+  <form action="https://formsubmit.co/contact@bridgeforensiclogic.com" method="POST">
+    <input type="hidden" name="_subject" value="Request Access">
+    <input type="hidden" name="_captcha" value="false">
 
+    <div style="margin-bottom: 1rem;">
+      <input type="text" name="name" placeholder="Name" required style="width: 100%; padding: 0.75rem;">
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      <input type="email" name="email" placeholder="Email" required style="width: 100%; padding: 0.75rem;">
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      <textarea name="message" placeholder="Message" rows="5" required style="width: 100%; padding: 0.75rem;"></textarea>
+    </div>
+
+    <button type="submit">Transmit</button>
+  </form>
+</div>
 </body>
 </html>
