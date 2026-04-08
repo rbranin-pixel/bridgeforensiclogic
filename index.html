@@ -27,6 +27,20 @@ body {
   padding: 100px 20px;
 }
 
+/* FLICKER EFFECT */
+body.flicker {
+  animation: flicker 0.4s linear;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  20% { opacity: 0.6; }
+  40% { opacity: 1; }
+  60% { opacity: 0.4; }
+  80% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
 .wrap {
   max-width: 760px;
   margin: 0 auto;
@@ -152,6 +166,12 @@ p {
 function revealAccess() {
   const panel = document.getElementById('access-panel');
   const status = document.getElementById('status');
+
+  // flicker pulse
+  document.body.classList.add('flicker');
+  setTimeout(() => {
+    document.body.classList.remove('flicker');
+  }, 400);
 
   status.textContent = "REQUEST RECEIVED";
 
