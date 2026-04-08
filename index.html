@@ -78,29 +78,37 @@
       text-decoration: none;
     }
 
-    .button {
+    .button,
+    .action {
       display: inline-block;
-      margin-top: 2rem;
       padding: 12px 24px;
       border: 1px solid var(--fg);
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      transition: opacity 0.3s ease, border-color 0.3s ease;
+      transition: opacity 0.3s ease;
       cursor: pointer;
       user-select: none;
+      background: transparent;
+      color: var(--fg);
+      font: inherit;
     }
 
-    .button:hover {
+    .button:hover,
+    .action:hover {
       opacity: 0.72;
     }
 
+    .button {
+      margin-top: 2rem;
+    }
+
     #access-panel {
-      max-width: 440px;
+      max-width: 500px;
       margin: 2.25rem auto 0;
-      text-align: left;
+      text-align: center;
       opacity: 0;
       transform: translateY(10px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: none;
       max-height: 0;
       overflow: hidden;
@@ -113,41 +121,28 @@
       max-height: 1000px;
     }
 
-    .field {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-      margin-bottom: 1.25rem;
-      color: var(--fg);
+    .channel {
+      margin-top: 1rem;
+      padding: 0.8rem 0;
+      border-top: 1px solid var(--line-bright);
+      border-bottom: 1px solid var(--line-bright);
+      letter-spacing: 0.05em;
+      word-break: break-word;
     }
 
-    .field.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .actions {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .label {
+    #status {
+      margin-top: 1rem;
+      min-height: 1.4rem;
       color: var(--fg-dim);
       letter-spacing: 0.08em;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
-    }
-
-    .value {
-      border-bottom: 1px solid var(--line-bright);
-      padding: 0.6rem 0;
-      word-break: break-word;
-      font-size: 0.98rem;
-    }
-
-    .action-link {
-      display: inline-block;
-      margin-top: 0.25rem;
-      border-bottom: 1px solid var(--line-bright);
-      padding-bottom: 2px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
       font-size: 0.92rem;
     }
 
@@ -160,7 +155,8 @@
         width: 160px;
       }
 
-      .button {
+      .button,
+      .action {
         padding: 11px 20px;
       }
     }
@@ -177,36 +173,33 @@
     <h2>NODE 001 — BASELINE</h2>
     <p>Baseline established. Noise reduced.</p>
 
-    <a class="button" href="#" onclick="revealAccess(); return false;">REQUEST ACCESS</a>
+    <button class="button" onclick="revealAccess()">REQUEST ACCESS</button>
 
     <div id="access-panel">
-      <div class="field">
-        <div class="label">Channel</div>
-        <div class="value">contact@bridgeforensiclogic.com</div>
+      <div class="channel" id="channel-email">contact@bridgeforensiclogic.com</div>
+
+      <div class="actions">
+        <button class="action" onclick="copyChannel()">COPY CHANNEL</button>
+        <a class="action" href="mailto:contact@bridgeforensiclogic.com?subject=Request%20Access">TRANSMIT</a>
       </div>
 
-      <div class="field">
-        <div class="label">Action</div>
-        <div class="value">
-          <a class="action-link" href="mailto:contact@bridgeforensiclogic.com?subject=Request%20Access">Transmit</a>
-        </div>
-      </div>
+      <div id="status"></div>
     </div>
   </div>
 
   <script>
     function revealAccess() {
-      const panel = document.getElementById('access-panel');
-      if (!panel.classList.contains('visible')) {
-        panel.classList.add('visible');
+      document.getElementById('access-panel').classList.add('visible');
+      document.getElementById('status').textContent = '';
+    }
 
-        const fields = panel.querySelectorAll('.field');
-        fields.forEach((field, index) => {
-          setTimeout(() => {
-            field.classList.add('visible');
-          }, 180 + (index * 180));
-        });
-      }
+    function copyChannel() {
+      const email = document.getElementById('channel-email').textContent;
+      navigator.clipboard.writeText(email).then(() => {
+        document.getElementById('status').textContent = 'CHANNEL COPIED';
+      }).catch(() => {
+        document.getElementById('status').textContent = 'COPY FAILED';
+      });
     }
   </script>
 </body>
