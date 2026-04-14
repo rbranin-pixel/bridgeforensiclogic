@@ -1,6 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <div class="bfl-mark">
+  <img src="bridge.png" class="bridge-mark" alt="Bridge">
+
+  <div class="plumb-system">
+    <div class="cord"></div>
+    <img src="plumb.png" class="plumb" alt="Plumb">
+    <div class="rest-line"></div>
+  </div>
+    .bfl-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+/* Bridge */
+.bridge-mark {
+  width: 160px;
+  opacity: 0.9;
+}
+
+/* Vertical system */
+.plumb-system {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Cord */
+.cord {
+  width: 1px;
+  height: 60px;
+  background: rgba(201, 164, 107, 0.6);
+}
+
+/* Plumb */
+.plumb {
+  width: 70px;
+  margin-top: -2px;
+  opacity: 0.95;
+}
+
+/* Resting line */
+.rest-line {
+  width: 80px;
+  height: 1px;
+  background: rgba(201, 164, 107, 0.5);
+  margin-top: 6px;
+}
+</div>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bridge Forensic Logic</title>
