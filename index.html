@@ -1,81 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <div class="bfl-mark">
-  <img src="bridge.png" class="bridge-mark" alt="Bridge">
-
-  <div class="plumb-system">
-    <div class="cord"></div>
-    <img src="plumb.png" class="plumb" alt="Plumb">
-    <div class="rest-line"></div>
-  </div>
-    .bfl-mark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-/* Bridge */
-.bridge-mark {
-  width: 160px;
-  opacity: 0.9;
-}
-
-/* Vertical system */
-.plumb-system {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-}
-
-/* Cord */
-.cord {
-  width: 1px;
-  height: 60px;
-  background: rgba(201, 164, 107, 0.6);
-}
-
-/* Plumb */
-.plumb {
-  width: 70px;
-  margin-top: -2px;
-  opacity: 0.95;
-}
-
-/* Resting line */
-.rest-line {
-  width: 80px;
-  height: 1px;
-  background: rgba(201, 164, 107, 0.5);
-  margin-top: 6px;
-}
-</div>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bridge Forensic Logic</title>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bridge Forensic Logic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #141311;
-      --bg-2: #191714;
-      --ink: #c9a46b; /* aged gold */
-      --muted: #8a6f4a; /* muted copper */
-      --line: rgba(201, 164, 107, 0.14);
-      --line-strong: rgba(201, 164, 107, 0.32);
-      --panel: rgba(16, 15, 13, 0.62);
-      --panel-2: rgba(18, 17, 15, 0.82);
+      --bg: #12110f;
+      --bg-2: #181613;
+      --ink: #c6a06a;
+      --ink-soft: #b48852;
+      --muted: #8e6d46;
+      --line: rgba(198, 160, 106, 0.14);
+      --line-strong: rgba(198, 160, 106, 0.28);
+      --panel: rgba(18, 17, 15, 0.68);
+      --panel-deep: rgba(14, 13, 12, 0.82);
+      --shadow: rgba(0, 0, 0, 0.35);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
@@ -86,16 +36,27 @@
       margin: 0;
       min-height: 100vh;
       color: var(--ink);
-     font-family: "EB Garamond", Georgia, serif;
-      letter-spacing: 0.015em;
+      font-family: "EB Garamond", Georgia, serif;
+      letter-spacing: 0.02em;
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.025), transparent 30%),
-        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.018), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 20%, transparent 78%, rgba(0,0,0,0.22)),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 7px),
-        linear-gradient(0deg, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 8px),
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.02), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.015), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.015), transparent 22%, transparent 78%, rgba(0,0,0,0.22)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.012) 0,
+          rgba(255,255,255,0.012) 1px,
+          transparent 1px,
+          transparent 4px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.008) 0,
+          rgba(255,255,255,0.008) 1px,
+          transparent 1px,
+          transparent 5px
+        ),
         linear-gradient(180deg, var(--bg-2), var(--bg));
-      background-size: auto, auto, auto, 8px 8px, 8px 8px, auto;
       position: relative;
       overflow-x: hidden;
     }
@@ -105,14 +66,15 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.18;
+      opacity: 0.22;
       background:
+        linear-gradient(180deg, transparent, rgba(255,255,255,0.015), transparent),
         repeating-linear-gradient(
           90deg,
-          rgba(255,255,255,0.02) 0,
-          rgba(255,255,255,0.02) 1px,
+          rgba(255,255,255,0.012) 0,
+          rgba(255,255,255,0.012) 1px,
           transparent 1px,
-          transparent 3px
+          transparent 2px
         );
       mix-blend-mode: soft-light;
     }
@@ -122,9 +84,8 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background:
-        radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.2) 100%);
-      opacity: 0.85;
+      background: radial-gradient(circle at center, transparent 45%, rgba(0,0,0,0.24) 100%);
+      opacity: 0.9;
     }
 
     .page {
@@ -132,7 +93,7 @@
       z-index: 1;
       width: min(1120px, calc(100vw - 40px));
       margin: 0 auto;
-      padding: 28px 0 80px;
+      padding: 26px 0 80px;
     }
 
     .rule {
@@ -142,15 +103,15 @@
     }
 
     header {
-      padding: 14px 0 22px;
+      padding: 10px 0 18px;
     }
 
     .eyebrow {
-      font-size: 0.68rem;
-      letter-spacing: 0.34em;
+      font-size: 0.7rem;
       text-transform: uppercase;
+      letter-spacing: 0.3em;
       color: var(--muted);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       opacity: 0.9;
     }
 
@@ -160,58 +121,119 @@
       align-items: end;
       gap: 16px;
       flex-wrap: wrap;
-      padding: 10px 0 6px;
+      padding: 10px 0 8px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 4.6vw, 4.4rem);
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
       line-height: 0.96;
       font-weight: 500;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--ink);
-      text-shadow: 0 0 1px rgba(215, 209, 196, 0.15);
+      opacity: 0.96;
+      text-shadow: 0 0 1px rgba(198, 160, 106, 0.18);
     }
 
     .submark {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-size: 0.76rem;
+      line-height: 1.8;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
       text-align: right;
       max-width: 340px;
-      line-height: 1.8;
+    }
+
+    /* MARK */
+    .bfl-mark-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 34px 0 10px;
+    }
+
+    .bfl-mark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .bridge-mark {
+      width: min(360px, 72vw);
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter:
+        saturate(0.92)
+        brightness(0.94)
+        drop-shadow(0 1px 0 rgba(255,255,255,0.03))
+        drop-shadow(0 8px 16px rgba(0,0,0,0.18));
+      opacity: 0.95;
+    }
+
+    .plumb-system {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -2px;
+    }
+
+    .cord {
+      width: 1px;
+      height: 86px;
+      background: linear-gradient(180deg, rgba(198, 160, 106, 0.92), rgba(142, 109, 70, 0.62));
+      box-shadow: 0 0 2px rgba(198, 160, 106, 0.14);
+    }
+
+    .plumb {
+      width: min(84px, 18vw);
+      height: auto;
+      display: block;
+      margin-top: -2px;
+      filter:
+        saturate(0.94)
+        brightness(0.92)
+        drop-shadow(0 8px 18px rgba(0,0,0,0.28));
+      opacity: 0.96;
+    }
+
+    .rest-line {
+      width: 112px;
+      height: 1px;
+      margin-top: 8px;
+      background: linear-gradient(90deg, transparent, rgba(198, 160, 106, 0.72), transparent);
     }
 
     .intro-grid {
-      margin-top: 34px;
+      margin-top: 26px;
       display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
+      grid-template-columns: 1.25fr 0.95fr;
       gap: 28px;
       align-items: start;
     }
 
     .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(201, 164, 107, 0.18);
+      background: linear-gradient(180deg, rgba(255,255,255,0.014), rgba(255,255,255,0.008));
+      border: 1px solid var(--line);
       padding: 24px;
       position: relative;
-      backdrop-filter: blur(1.5px);
+      box-shadow: 0 12px 24px var(--shadow);
     }
 
     .panel::before {
       content: "";
       position: absolute;
       inset: 0;
-      border: 1px solid rgba(255,255,255,0.015);
+      border: 1px solid rgba(255,255,255,0.012);
       pointer-events: none;
     }
 
     .section-label {
       display: inline-block;
-      margin-bottom: 18px;
-      font-size: 0.64rem;
+      margin-bottom: 16px;
+      font-size: 0.66rem;
       letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--muted);
@@ -219,65 +241,72 @@
 
     .lede {
       margin: 0;
-      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-      line-height: 1.55;
       max-width: 28ch;
-      text-wrap: balance;
-      color: #c2a06a;
+      font-size: clamp(1.15rem, 1.9vw, 1.46rem);
+      line-height: 1.56;
+      color: var(--ink-soft);
     }
 
     .small-block {
       display: grid;
       gap: 14px;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.96rem;
       line-height: 1.7;
     }
 
     .signal-shell {
       margin-top: 64px;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.08fr 0.92fr;
       gap: 28px;
       align-items: stretch;
     }
 
-    .signal-panel {
+    .signal-panel,
+    .fragment-panel {
+      min-height: 430px;
       padding: 28px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.16), rgba(255,255,255,0.015));
-      border: 1px solid rgba(201, 164, 107, 0.18);
-      min-height: 420px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      border: 1px solid var(--line);
       position: relative;
+      box-shadow: 0 14px 26px var(--shadow);
     }
 
-    .signal-panel::after {
+    .signal-panel {
+      background: linear-gradient(180deg, rgba(0,0,0,0.14), rgba(255,255,255,0.012));
+    }
+
+    .fragment-panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.18));
+    }
+
+    .signal-panel::after,
+    .fragment-panel::after {
       content: "";
       position: absolute;
       inset: 14px;
-      border: 1px solid rgba(215, 209, 196, 0.06);
+      border: 1px solid rgba(198, 160, 106, 0.05);
       pointer-events: none;
     }
 
     .signal-copy h2,
     .fragment-panel h2 {
       margin: 0 0 14px;
-      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-      line-height: 1.05;
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+      line-height: 1.04;
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--ink);
     }
 
     .signal-copy p,
-    .fragment-text {
+    .fragment-text,
+    .lower p {
       margin: 0;
-      max-width: 36ch;
       font-size: 1rem;
-      line-height: 1.8;
-      color: #b8945f;
+      line-height: 1.82;
+      color: #b88d57;
     }
 
     form {
@@ -291,27 +320,34 @@
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--muted);
+      display: inline-block;
+      margin-bottom: 8px;
     }
 
     textarea {
       width: 100%;
-      min-height: 128px;
+      min-height: 136px;
       resize: vertical;
       border: 1px solid var(--line-strong);
-      background: rgba(10, 10, 9, 0.46);
+      background: rgba(12, 11, 10, 0.52);
       color: var(--ink);
       padding: 16px 18px;
-      font: inherit;
-      line-height: 1.7;
-      outline: none;
       border-radius: 0;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.015);
+      outline: none;
+      font: inherit;
+      font-size: 1rem;
+      line-height: 1.72;
+      letter-spacing: 0.02em;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.01);
     }
 
-    textarea::placeholder { color: #7a6242; }
+    textarea::placeholder {
+      color: #7a6040;
+    }
+
     textarea:focus {
-      border-color: rgba(215, 209, 196, 0.42);
-      background: rgba(10, 10, 9, 0.56);
+      border-color: rgba(198, 160, 106, 0.4);
+      background: rgba(12, 11, 10, 0.6);
     }
 
     .actions {
@@ -326,7 +362,7 @@
       appearance: none;
       border-radius: 0;
       border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.02);
+      background: rgba(255,255,255,0.014);
       color: var(--ink);
       text-transform: uppercase;
       letter-spacing: 0.24em;
@@ -335,50 +371,35 @@
       cursor: pointer;
       text-decoration: none;
       transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+      font-family: inherit;
     }
 
     button:hover,
     .ghost-link:hover {
-      background: rgba(255,255,255,0.045);
-      border-color: rgba(215, 209, 196, 0.45);
+      background: rgba(198, 160, 106, 0.05);
+      border-color: rgba(198, 160, 106, 0.42);
     }
 
     button:active,
-    .ghost-link:active { transform: translateY(1px); }
+    .ghost-link:active {
+      transform: translateY(1px);
+    }
 
     .micro-note {
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       line-height: 1.7;
       max-width: 38ch;
     }
 
-    .fragment-panel {
-      border: 1px solid rgba(201, 164, 107, 0.18);
-      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.2));
-      padding: 28px;
-      min-height: 420px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .fragment-panel::after {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border: 1px solid rgba(215, 209, 196, 0.045);
-      pointer-events: none;
-    }
-
     .fragment-box {
       margin-top: 20px;
+      min-height: 190px;
       padding: 18px 18px 20px;
       border-left: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.012);
-      min-height: 180px;
+      background: rgba(255,255,255,0.01);
       white-space: pre-line;
+      color: var(--ink-soft);
     }
 
     .fragment-meta {
@@ -411,13 +432,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 28px;
-    }
-
-    .lower p {
-      margin: 0;
-      color: #b8945f;
-      line-height: 1.8;
-      max-width: 42ch;
     }
 
     footer {
@@ -470,6 +484,14 @@
         inset: 10px;
       }
 
+      .cord {
+        height: 70px;
+      }
+
+      .rest-line {
+        width: 90px;
+      }
+
       button,
       .ghost-link {
         width: 100%;
@@ -483,6 +505,7 @@
     <header>
       <div class="eyebrow">BridgeForensicLogic, LLC</div>
       <div class="rule"></div>
+
       <div class="brand-row">
         <h1>The Bridge</h1>
         <div class="submark">
@@ -490,8 +513,26 @@
           Receipt precedes explanation
         </div>
       </div>
+
       <div class="rule"></div>
     </header>
+
+    <!--
+      IMPORTANT:
+      Put your two image files in the same folder as index.html and name them exactly:
+      1. bridge-mark.png
+      2. plumb.png
+    -->
+    <section class="bfl-mark-wrap" aria-label="Bridge and plumb mark">
+      <div class="bfl-mark">
+        <img src="bridge-mark.png" alt="Bridge mark" class="bridge-mark" />
+        <div class="plumb-system">
+          <div class="cord"></div>
+          <img src="plumb.png" alt="Plumb bob" class="plumb" />
+          <div class="rest-line"></div>
+        </div>
+      </div>
+    </section>
 
     <section class="intro-grid">
       <article class="panel">
@@ -523,11 +564,13 @@
             <label for="signal">Input</label>
             <textarea id="signal" name="signal" placeholder="Transmit condition. Submit signal. Place fragment."></textarea>
           </div>
+
           <div class="actions">
             <button type="submit">Transmit</button>
             <button type="button" id="clear-btn">Reset</button>
             <a href="#fragment" class="ghost-link">View Fragment</a>
           </div>
+
           <div class="micro-note">
             Signal is received as placed. Interpretation is withheld. Retention is conditional.
           </div>
@@ -538,9 +581,11 @@
         <div>
           <div class="section-label">Fragment Return</div>
           <h2>Fragment</h2>
+
           <div class="fragment-box fragment-text" id="fragment-text">Awaiting transmission.
 
 No fragment retained.</div>
+
           <div class="fragment-meta">
             <div class="meta-cell">Status<strong id="status">Idle</strong></div>
             <div class="meta-cell">Channel<strong id="channel">Open</strong></div>
@@ -557,6 +602,7 @@ No fragment retained.</div>
           This surface is not a dashboard and does not perform certainty. It receives input, exposes condition, and leaves resolution incomplete where resolution does not hold.
         </p>
       </article>
+
       <article class="panel">
         <div class="section-label">Archive</div>
         <p>
@@ -573,22 +619,23 @@ No fragment retained.</div>
   </main>
 
   <script>
-    const form = document.getElementById('signal-form');
-    const input = document.getElementById('signal');
-    const fragmentText = document.getElementById('fragment-text');
-    const statusEl = document.getElementById('status');
-    const channelEl = document.getElementById('channel');
-    const retentionEl = document.getElementById('retention');
-    const clearBtn = document.getElementById('clear-btn');
+    const form = document.getElementById("signal-form");
+    const input = document.getElementById("signal");
+    const fragmentText = document.getElementById("fragment-text");
+    const statusEl = document.getElementById("status");
+    const channelEl = document.getElementById("channel");
+    const retentionEl = document.getElementById("retention");
+    const clearBtn = document.getElementById("clear-btn");
 
     function buildFragment(value) {
       const trimmed = value.trim();
+
       if (!trimmed) {
         return {
-          text: 'Awaiting transmission.\n\nNo fragment retained.',
-          status: 'Idle',
-          channel: 'Open',
-          retention: 'Pending'
+          text: "Awaiting transmission.\n\nNo fragment retained.",
+          status: "Idle",
+          channel: "Open",
+          retention: "Pending"
         };
       }
 
@@ -597,27 +644,27 @@ No fragment retained.</div>
       const hasQuestion = /\?/.test(trimmed);
       const words = trimmed.split(/\s+/).filter(Boolean).length;
 
-      let line2 = 'Condition unstable.';
-      let line3 = 'Record partial.';
-      let status = 'Received';
-      let channel = 'Active';
-      let retention = 'Conditional';
+      let line2 = "Condition unstable.";
+      let line3 = "Record partial.";
+      let status = "Received";
+      let channel = "Active";
+      let retention = "Conditional";
 
       if (hasQuestion) {
-        line2 = 'Condition remains unresolved.';
-        line3 = 'Further measure required.';
-        status = 'Open';
-        retention = 'Withheld';
+        line2 = "Condition remains unresolved.";
+        line3 = "Further measure required.";
+        status = "Open";
+        retention = "Withheld";
       } else if (hasDivision || words > 18) {
-        line2 = 'Pattern does not retain intact.';
-        line3 = 'Division exposes drift.';
-        status = 'Fractured';
-        retention = 'Partial';
+        line2 = "Pattern does not retain intact.";
+        line3 = "Division exposes drift.";
+        status = "Fractured";
+        retention = "Partial";
       } else if (length < 20) {
-        line2 = 'Signal insufficient for closure.';
-        line3 = 'Record remains provisional.';
-        status = 'Thin';
-        retention = 'Pending';
+        line2 = "Signal insufficient for closure.";
+        line3 = "Record remains provisional.";
+        status = "Thin";
+        retention = "Pending";
       }
 
       return {
@@ -628,589 +675,22 @@ No fragment retained.</div>
       };
     }
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener("submit", function (event) {
       event.preventDefault();
       const fragment = buildFragment(input.value);
       fragmentText.textContent = fragment.text;
       statusEl.textContent = fragment.status;
       channelEl.textContent = fragment.channel;
       retentionEl.textContent = fragment.retention;
-      document.getElementById('fragment').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById("fragment").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     });
 
-    clearBtn.addEventListener('click', () => {
-      input.value = '';
-      const fragment = buildFragment('');
-      fragmentText.textContent = fragment.text;
-      statusEl.textContent = fragment.status;
-      channelEl.textContent = fragment.channel;
-      retentionEl.textContent = fragment.retention;
-      input.focus();
-    });
-  </script>
-</body>
-</html>
-
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--ink);
-      font-family: Georgia, "Times New Roman", serif;
-      letter-spacing: 0.015em;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.025), transparent 30%),
-        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.018), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 20%, transparent 78%, rgba(0,0,0,0.22)),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 7px),
-        linear-gradient(0deg, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 8px),
-        linear-gradient(180deg, var(--bg-2), var(--bg));
-      background-size: auto, auto, auto, 8px 8px, 8px 8px, auto;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.18;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.02) 0,
-          rgba(255,255,255,0.02) 1px,
-          transparent 1px,
-          transparent 3px
-        );
-      mix-blend-mode: soft-light;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.2) 100%);
-      opacity: 0.85;
-    }
-
-    .page {
-      position: relative;
-      z-index: 1;
-      width: min(1120px, calc(100vw - 40px));
-      margin: 0 auto;
-      padding: 28px 0 80px;
-    }
-
-    .rule {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-    }
-
-    header {
-      padding: 14px 0 22px;
-    }
-
-    .eyebrow {
-      font-size: 0.68rem;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-      opacity: 0.9;
-    }
-
-    .brand-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding: 10px 0 6px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4.6vw, 4.4rem);
-      line-height: 0.96;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-shadow: 0 0 1px rgba(215, 209, 196, 0.15);
-    }
-
-    .submark {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: right;
-      max-width: 340px;
-      line-height: 1.8;
-    }
-
-    .intro-grid {
-      margin-top: 34px;
-      display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid var(--line);
-      padding: 24px;
-      position: relative;
-      backdrop-filter: blur(1.5px);
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(255,255,255,0.015);
-      pointer-events: none;
-    }
-
-    .section-label {
-      display: inline-block;
-      margin-bottom: 18px;
-      font-size: 0.64rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .lede {
-      margin: 0;
-      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-      line-height: 1.55;
-      max-width: 28ch;
-      text-wrap: balance;
-      color: #d5cfc3;
-    }
-
-    .small-block {
-      display: grid;
-      gap: 14px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.7;
-    }
-
-    .signal-shell {
-      margin-top: 64px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .signal-panel {
-      padding: 28px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.16), rgba(255,255,255,0.015));
-      border: 1px solid var(--line);
-      min-height: 420px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .signal-panel::after {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border: 1px solid rgba(215, 209, 196, 0.06);
-      pointer-events: none;
-    }
-
-    .signal-copy h2,
-    .fragment-panel h2 {
-      margin: 0 0 14px;
-      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-      line-height: 1.05;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .signal-copy p,
-    .fragment-text {
-      margin: 0;
-      max-width: 36ch;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #c7c0b3;
-    }
-
-    form {
-      margin-top: 28px;
-      display: grid;
-      gap: 14px;
-    }
-
-    label {
-      font-size: 0.64rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 128px;
-      resize: vertical;
-      border: 1px solid var(--line-strong);
-      background: rgba(10, 10, 9, 0.46);
-      color: var(--ink);
-      padding: 16px 18px;
-      font: inherit;
-      line-height: 1.7;
-      outline: none;
-      border-radius: 0;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.015);
-    }
-
-    textarea::placeholder { color: #8d867b; }
-    textarea:focus {
-      border-color: rgba(215, 209, 196, 0.42);
-      background: rgba(10, 10, 9, 0.56);
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    button,
-    .ghost-link {
-      appearance: none;
-      border-radius: 0;
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.02);
-      color: var(--ink);
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      font-size: 0.68rem;
-      padding: 13px 18px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
-    }
-
-    button:hover,
-    .ghost-link:hover {
-      background: rgba(255,255,255,0.045);
-      border-color: rgba(215, 209, 196, 0.45);
-    }
-
-    button:active,
-    .ghost-link:active { transform: translateY(1px); }
-
-    .micro-note {
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.7;
-      max-width: 38ch;
-    }
-
-    .fragment-panel {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.2));
-      padding: 28px;
-      min-height: 420px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .fragment-panel::after {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border: 1px solid rgba(215, 209, 196, 0.045);
-      pointer-events: none;
-    }
-
-    .fragment-box {
-      margin-top: 20px;
-      padding: 18px 18px 20px;
-      border-left: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.012);
-      min-height: 180px;
-      white-space: pre-line;
-    }
-
-    .fragment-meta {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-    }
-
-    .meta-cell {
-      border-top: 1px solid var(--line);
-      padding-top: 10px;
-      min-height: 42px;
-    }
-
-    .meta-cell strong {
-      display: block;
-      margin-top: 6px;
-      color: var(--ink);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-    }
-
-    .lower {
-      margin-top: 72px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-
-    .lower p {
-      margin: 0;
-      color: #c6c0b4;
-      line-height: 1.8;
-      max-width: 42ch;
-    }
-
-    footer {
-      margin-top: 76px;
-      padding-top: 22px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .quiet {
-      opacity: 0.85;
-    }
-
-    @media (max-width: 900px) {
-      .intro-grid,
-      .signal-shell,
-      .lower {
-        grid-template-columns: 1fr;
-      }
-
-      .submark {
-        text-align: left;
-      }
-
-      .fragment-meta {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .page {
-        width: min(100vw - 24px, 1120px);
-        padding-top: 18px;
-      }
-
-      .panel,
-      .signal-panel,
-      .fragment-panel {
-        padding: 18px;
-      }
-
-      .signal-panel::after,
-      .fragment-panel::after {
-        inset: 10px;
-      }
-
-      button,
-      .ghost-link {
-        width: 100%;
-        text-align: center;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main class="page">
-    <header>
-      <div class="eyebrow">BridgeForensicLogic, LLC</div>
-      <div class="rule"></div>
-      <div class="brand-row">
-        <h1>The Bridge</h1>
-        <div class="submark">
-          Long-term archive surface<br />
-          Receipt precedes explanation
-        </div>
-      </div>
-      <div class="rule"></div>
-    </header>
-
-    <section class="intro-grid">
-      <article class="panel">
-        <div class="section-label">Node 001 — Baseline</div>
-        <p class="lede">
-          The system appears stable until pressure is applied. What holds remains. What does not remains visible.
-        </p>
-      </article>
-
-      <aside class="panel small-block">
-        <div><span class="section-label">Condition</span><br />Baseline established. Noise reduced.</div>
-        <div><span class="section-label">Contact</span><br />bridge@bridgeforensiclogic.com</div>
-        <div><span class="section-label">Channel</span><br />Copy channel transmit.</div>
-      </aside>
-    </section>
-
-    <section class="signal-shell" aria-label="Signal intake and fragment return">
-      <section class="signal-panel">
-        <div class="signal-copy">
-          <div class="section-label">Receipt Surface</div>
-          <h2>Enter Signal</h2>
-          <p>
-            Place a condition into the field. No analysis is promised. No conclusion is issued on entry.
-          </p>
-        </div>
-
-        <form id="signal-form">
-          <div>
-            <label for="signal">Input</label>
-            <textarea id="signal" name="signal" placeholder="Transmit condition. Submit signal. Place fragment."></textarea>
-          </div>
-          <div class="actions">
-            <button type="submit">Transmit</button>
-            <button type="button" id="clear-btn">Reset</button>
-            <a href="#fragment" class="ghost-link">View Fragment</a>
-          </div>
-          <div class="micro-note">
-            Signal is received as placed. Interpretation is withheld. Retention is conditional.
-          </div>
-        </form>
-      </section>
-
-      <section class="fragment-panel" id="fragment">
-        <div>
-          <div class="section-label">Fragment Return</div>
-          <h2>Fragment</h2>
-          <div class="fragment-box fragment-text" id="fragment-text">Awaiting transmission.
-
-No fragment retained.</div>
-          <div class="fragment-meta">
-            <div class="meta-cell">Status<strong id="status">Idle</strong></div>
-            <div class="meta-cell">Channel<strong id="channel">Open</strong></div>
-            <div class="meta-cell">Retention<strong id="retention">Pending</strong></div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section class="lower">
-      <article class="panel">
-        <div class="section-label">Entry</div>
-        <p>
-          This surface is not a dashboard and does not perform certainty. It receives input, exposes condition, and leaves resolution incomplete where resolution does not hold.
-        </p>
-      </article>
-      <article class="panel">
-        <div class="section-label">Archive</div>
-        <p>
-          The page is treated as retained material rather than a bright interface. It should feel handled, printed, stored, and returned to use without belonging to any single moment.
-        </p>
-      </article>
-    </section>
-
-    <footer>
-      <div>BridgeForensicLogic.com</div>
-      <div class="quiet">Request Access</div>
-      <div class="quiet">Contact@BridgeForensicLogic.com</div>
-    </footer>
-  </main>
-
-  <script>
-    const form = document.getElementById('signal-form');
-    const input = document.getElementById('signal');
-    const fragmentText = document.getElementById('fragment-text');
-    const statusEl = document.getElementById('status');
-    const channelEl = document.getElementById('channel');
-    const retentionEl = document.getElementById('retention');
-    const clearBtn = document.getElementById('clear-btn');
-
-    function buildFragment(value) {
-      const trimmed = value.trim();
-      if (!trimmed) {
-        return {
-          text: 'Awaiting transmission.\n\nNo fragment retained.',
-          status: 'Idle',
-          channel: 'Open',
-          retention: 'Pending'
-        };
-      }
-
-      const length = trimmed.length;
-      const hasDivision = /,|;|:|\-|\n/.test(trimmed);
-      const hasQuestion = /\?/.test(trimmed);
-      const words = trimmed.split(/\s+/).filter(Boolean).length;
-
-      let line2 = 'Condition unstable.';
-      let line3 = 'Record partial.';
-      let status = 'Received';
-      let channel = 'Active';
-      let retention = 'Conditional';
-
-      if (hasQuestion) {
-        line2 = 'Condition remains unresolved.';
-        line3 = 'Further measure required.';
-        status = 'Open';
-        retention = 'Withheld';
-      } else if (hasDivision || words > 18) {
-        line2 = 'Pattern does not retain intact.';
-        line3 = 'Division exposes drift.';
-        status = 'Fractured';
-        retention = 'Partial';
-      } else if (length < 20) {
-        line2 = 'Signal insufficient for closure.';
-        line3 = 'Record remains provisional.';
-        status = 'Thin';
-        retention = 'Pending';
-      }
-
-      return {
-        text: `Signal received.\n\n${line2}\n${line3}`,
-        status,
-        channel,
-        retention
-      };
-    }
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const fragment = buildFragment(input.value);
-      fragmentText.textContent = fragment.text;
-      statusEl.textContent = fragment.status;
-      channelEl.textContent = fragment.channel;
-      retentionEl.textContent = fragment.retention;
-      document.getElementById('fragment').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    clearBtn.addEventListener('click', () => {
-      input.value = '';
-      const fragment = buildFragment('');
+    clearBtn.addEventListener("click", function () {
+      input.value = "";
+      const fragment = buildFragment("");
       fragmentText.textContent = fragment.text;
       statusEl.textContent = fragment.status;
       channelEl.textContent = fragment.channel;
