@@ -1,205 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Bridge</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bridge Forensic Logic</title>
+  <style>
+    :root {
+      --bg: #141311;
+      --bg-2: #191714;
+      --ink: #d7d1c4;
+      --muted: #9f988d;
+      --line: rgba(215, 209, 196, 0.14);
+      --line-strong: rgba(215, 209, 196, 0.28);
+      --panel: rgba(16, 15, 13, 0.62);
+      --panel-2: rgba(18, 17, 15, 0.82);
+    }
 
-<style>
-:root {
-  --bg: #0b0b0b;
-  --fg: #d6b16a;
-  --fg-dim: rgba(214,177,106,0.65);
-  --line: #6f5829;
-  --line-bright: rgba(212,175,55,0.4);
-}
+    * { box-sizing: border-box; }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: Garamond, serif;
-  text-align: center;
-}
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
 
-body {
-  padding: 100px 20px;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0.015em;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.025), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.018), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 20%, transparent 78%, rgba(0,0,0,0.22)),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 7px),
+        linear-gradient(0deg, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 8px),
+        linear-gradient(180deg, var(--bg-2), var(--bg));
+      background-size: auto, auto, auto, 8px 8px, 8px 8px, auto;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-/* FLICKER EFFECT */
-body.flicker {
-  animation: flicker 0.4s linear;
-}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.02) 0,
+          rgba(255,255,255,0.02) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+      mix-blend-mode: soft-light;
+    }
 
-@keyframes flicker {
-  0% { opacity: 1; }
-  20% { opacity: 0.6; }
-  40% { opacity: 1; }
-  60% { opacity: 0.4; }
-  80% { opacity: 1; }
-  100% { opacity: 1; }
-}
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.2) 100%);
+      opacity: 0.85;
+    }
 
-.wrap {
-  max-width: 760px;
-  margin: 0 auto;
-}
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 28px 0 80px;
+    }
 
-h1 {
-  font-size: 3rem;
-  letter-spacing: 0.15em;
-  font-weight: normal;
-}
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+    }
 
-h2 {
-  margin-top: 2.5rem;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
-  font-weight: normal;
-}
+    header {
+      padding: 14px 0 22px;
+    }
 
-p {
-  margin: 0.5rem 0;
-}
+    .eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      opacity: 0.9;
+    }
 
-.subtle {
-  color: var(--fg-dim);
-}
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 10px 0 6px;
+    }
 
-.line {
-  margin: 2.5rem auto;
-  width: 200px;
-  height: 1px;
-  background: var(--line);
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.6vw, 4.4rem);
+      line-height: 0.96;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-shadow: 0 0 1px rgba(215, 209, 196, 0.15);
+    }
 
-.button, .action {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 12px 24px;
-  border: 1px solid var(--fg);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: none;
-  color: var(--fg);
-}
+    .submark {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      max-width: 340px;
+      line-height: 1.8;
+    }
 
-.button:hover, .action:hover {
-  opacity: 0.7;
-}
+    .intro-grid {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
 
-#access-panel {
-  max-width: 500px;
-  margin: 2rem auto 0;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.6s ease;
-  pointer-events: none;
-  max-height: 0;
-  overflow: hidden;
-}
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      padding: 24px;
+      position: relative;
+      backdrop-filter: blur(1.5px);
+    }
 
-#access-panel.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  max-height: 1000px;
-}
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.015);
+      pointer-events: none;
+    }
 
-.channel {
-  margin-top: 1rem;
-  padding: 0.8rem 0;
-  border-top: 1px solid var(--line-bright);
-  border-bottom: 1px solid var(--line-bright);
-  word-break: break-word;
-}
+    .section-label {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: 0.64rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-.actions {
-  margin-top: 1.2rem;
-}
+    .lede {
+      margin: 0;
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      line-height: 1.55;
+      max-width: 28ch;
+      text-wrap: balance;
+      color: #d5cfc3;
+    }
 
-.action {
-  margin: 0 5px;
-}
+    .small-block {
+      display: grid;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
 
-#status {
-  margin-top: 1rem;
-  min-height: 1.5rem;
-  color: var(--fg-dim);
-  letter-spacing: 0.08em;
-  transition: opacity 0.3s ease;
-}
-</style>
+    .signal-shell {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .signal-panel {
+      padding: 28px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.16), rgba(255,255,255,0.015));
+      border: 1px solid var(--line);
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .signal-panel::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(215, 209, 196, 0.06);
+      pointer-events: none;
+    }
+
+    .signal-copy h2,
+    .fragment-panel h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .signal-copy p,
+    .fragment-text {
+      margin: 0;
+      max-width: 36ch;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #c7c0b3;
+    }
+
+    form {
+      margin-top: 28px;
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      font-size: 0.64rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 128px;
+      resize: vertical;
+      border: 1px solid var(--line-strong);
+      background: rgba(10, 10, 9, 0.46);
+      color: var(--ink);
+      padding: 16px 18px;
+      font: inherit;
+      line-height: 1.7;
+      outline: none;
+      border-radius: 0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.015);
+    }
+
+    textarea::placeholder { color: #8d867b; }
+    textarea:focus {
+      border-color: rgba(215, 209, 196, 0.42);
+      background: rgba(10, 10, 9, 0.56);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    button,
+    .ghost-link {
+      appearance: none;
+      border-radius: 0;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.02);
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.68rem;
+      padding: 13px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    button:hover,
+    .ghost-link:hover {
+      background: rgba(255,255,255,0.045);
+      border-color: rgba(215, 209, 196, 0.45);
+    }
+
+    button:active,
+    .ghost-link:active { transform: translateY(1px); }
+
+    .micro-note {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      max-width: 38ch;
+    }
+
+    .fragment-panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.2));
+      padding: 28px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .fragment-panel::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(215, 209, 196, 0.045);
+      pointer-events: none;
+    }
+
+    .fragment-box {
+      margin-top: 20px;
+      padding: 18px 18px 20px;
+      border-left: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.012);
+      min-height: 180px;
+      white-space: pre-line;
+    }
+
+    .fragment-meta {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .meta-cell {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      min-height: 42px;
+    }
+
+    .meta-cell strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+    }
+
+    .lower {
+      margin-top: 72px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .lower p {
+      margin: 0;
+      color: #c6c0b4;
+      line-height: 1.8;
+      max-width: 42ch;
+    }
+
+    footer {
+      margin-top: 76px;
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .quiet {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 900px) {
+      .intro-grid,
+      .signal-shell,
+      .lower {
+        grid-template-columns: 1fr;
+      }
+
+      .submark {
+        text-align: left;
+      }
+
+      .fragment-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100vw - 24px, 1120px);
+        padding-top: 18px;
+      }
+
+      .panel,
+      .signal-panel,
+      .fragment-panel {
+        padding: 18px;
+      }
+
+      .signal-panel::after,
+      .fragment-panel::after {
+        inset: 10px;
+      }
+
+      button,
+      .ghost-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">BridgeForensicLogic, LLC</div>
+      <div class="rule"></div>
+      <div class="brand-row">
+        <h1>The Bridge</h1>
+        <div class="submark">
+          Long-term archive surface<br />
+          Receipt precedes explanation
+        </div>
+      </div>
+      <div class="rule"></div>
+    </header>
 
-<div class="wrap">
-  <h1>THE BRIDGE</h1>
-  <p class="subtle">BridgeForensicLogic, LLC</p>
-  <p class="subtle">bridge@bridgeforensiclogic.com</p>
+    <section class="intro-grid">
+      <article class="panel">
+        <div class="section-label">Node 001 — Baseline</div>
+        <p class="lede">
+          The system appears stable until pressure is applied. What holds remains. What does not remains visible.
+        </p>
+      </article>
 
-  <div class="line"></div>
+      <aside class="panel small-block">
+        <div><span class="section-label">Condition</span><br />Baseline established. Noise reduced.</div>
+        <div><span class="section-label">Contact</span><br />bridge@bridgeforensiclogic.com</div>
+        <div><span class="section-label">Channel</span><br />Copy channel transmit.</div>
+      </aside>
+    </section>
 
-  <h2>NODE 001 — BASELINE</h2>
-  <p>Baseline established. Noise reduced.</p>
+    <section class="signal-shell" aria-label="Signal intake and fragment return">
+      <section class="signal-panel">
+        <div class="signal-copy">
+          <div class="section-label">Receipt Surface</div>
+          <h2>Enter Signal</h2>
+          <p>
+            Place a condition into the field. No analysis is promised. No conclusion is issued on entry.
+          </p>
+        </div>
 
-  <button class="button" onclick="revealAccess()">REQUEST ACCESS</button>
+        <form id="signal-form">
+          <div>
+            <label for="signal">Input</label>
+            <textarea id="signal" name="signal" placeholder="Transmit condition. Submit signal. Place fragment."></textarea>
+          </div>
+          <div class="actions">
+            <button type="submit">Transmit</button>
+            <button type="button" id="clear-btn">Reset</button>
+            <a href="#fragment" class="ghost-link">View Fragment</a>
+          </div>
+          <div class="micro-note">
+            Signal is received as placed. Interpretation is withheld. Retention is conditional.
+          </div>
+        </form>
+      </section>
 
-  <div id="access-panel">
-    <div class="channel" id="channel-email">
-      contact@bridgeforensiclogic.com
-    </div>
+      <section class="fragment-panel" id="fragment">
+        <div>
+          <div class="section-label">Fragment Return</div>
+          <h2>Fragment</h2>
+          <div class="fragment-box fragment-text" id="fragment-text">Awaiting transmission.
 
-    <div class="actions">
-      <button class="action" onclick="copyChannel()">COPY CHANNEL</button>
-      <a class="action" href="mailto:contact@bridgeforensiclogic.com?subject=Request%20Access">TRANSMIT</a>
-    </div>
+No fragment retained.</div>
+          <div class="fragment-meta">
+            <div class="meta-cell">Status<strong id="status">Idle</strong></div>
+            <div class="meta-cell">Channel<strong id="channel">Open</strong></div>
+            <div class="meta-cell">Retention<strong id="retention">Pending</strong></div>
+          </div>
+        </div>
+      </section>
+    </section>
 
-    <div id="status"></div>
-  </div>
-</div>
+    <section class="lower">
+      <article class="panel">
+        <div class="section-label">Entry</div>
+        <p>
+          This surface is not a dashboard and does not perform certainty. It receives input, exposes condition, and leaves resolution incomplete where resolution does not hold.
+        </p>
+      </article>
+      <article class="panel">
+        <div class="section-label">Archive</div>
+        <p>
+          The page is treated as retained material rather than a bright interface. It should feel handled, printed, stored, and returned to use without belonging to any single moment.
+        </p>
+      </article>
+    </section>
 
-<script>
-function revealAccess() {
-  const panel = document.getElementById('access-panel');
-  const status = document.getElementById('status');
+    <footer>
+      <div>BridgeForensicLogic.com</div>
+      <div class="quiet">Request Access</div>
+      <div class="quiet">Contact@BridgeForensicLogic.com</div>
+    </footer>
+  </main>
 
-  // flicker pulse
-  document.body.classList.add('flicker');
-  setTimeout(() => {
-    document.body.classList.remove('flicker');
-  }, 400);
+  <script>
+    const form = document.getElementById('signal-form');
+    const input = document.getElementById('signal');
+    const fragmentText = document.getElementById('fragment-text');
+    const statusEl = document.getElementById('status');
+    const channelEl = document.getElementById('channel');
+    const retentionEl = document.getElementById('retention');
+    const clearBtn = document.getElementById('clear-btn');
 
-  status.textContent = "REQUEST RECEIVED";
+    function buildFragment(value) {
+      const trimmed = value.trim();
+      if (!trimmed) {
+        return {
+          text: 'Awaiting transmission.\n\nNo fragment retained.',
+          status: 'Idle',
+          channel: 'Open',
+          retention: 'Pending'
+        };
+      }
 
-  setTimeout(() => {
-    status.textContent = "EVALUATING SIGNAL";
-  }, 600);
+      const length = trimmed.length;
+      const hasDivision = /,|;|:|\-|\n/.test(trimmed);
+      const hasQuestion = /\?/.test(trimmed);
+      const words = trimmed.split(/\s+/).filter(Boolean).length;
 
-  setTimeout(() => {
-    panel.classList.add('visible');
-    status.textContent = "CHANNEL AVAILABLE";
-  }, 1400);
-}
+      let line2 = 'Condition unstable.';
+      let line3 = 'Record partial.';
+      let status = 'Received';
+      let channel = 'Active';
+      let retention = 'Conditional';
 
-function copyChannel() {
-  const email = document.getElementById('channel-email').textContent;
-  const status = document.getElementById('status');
+      if (hasQuestion) {
+        line2 = 'Condition remains unresolved.';
+        line3 = 'Further measure required.';
+        status = 'Open';
+        retention = 'Withheld';
+      } else if (hasDivision || words > 18) {
+        line2 = 'Pattern does not retain intact.';
+        line3 = 'Division exposes drift.';
+        status = 'Fractured';
+        retention = 'Partial';
+      } else if (length < 20) {
+        line2 = 'Signal insufficient for closure.';
+        line3 = 'Record remains provisional.';
+        status = 'Thin';
+        retention = 'Pending';
+      }
 
-  navigator.clipboard.writeText(email).then(() => {
-    status.textContent = "CHANNEL ACQUIRED";
+      return {
+        text: `Signal received.\n\n${line2}\n${line3}`,
+        status,
+        channel,
+        retention
+      };
+    }
 
-    setTimeout(() => {
-      status.textContent = "AWAITING TRANSMISSION";
-    }, 1200);
-  }).catch(() => {
-    status.textContent = "TRANSMISSION ERROR";
-  });
-}
-</script>
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const fragment = buildFragment(input.value);
+      fragmentText.textContent = fragment.text;
+      statusEl.textContent = fragment.status;
+      channelEl.textContent = fragment.channel;
+      retentionEl.textContent = fragment.retention;
+      document.getElementById('fragment').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
 
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      const fragment = buildFragment('');
+      fragmentText.textContent = fragment.text;
+      statusEl.textContent = fragment.status;
+      channelEl.textContent = fragment.channel;
+      retentionEl.textContent = fragment.retention;
+      input.focus();
+    });
+  </script>
 </body>
 </html>
