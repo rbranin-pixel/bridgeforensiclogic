@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -146,7 +146,6 @@
       max-width: 340px;
     }
 
-    /* MARK */
     .bfl-mark-wrap {
       display: flex;
       justify-content: center;
@@ -302,87 +301,37 @@
 
     .signal-copy p,
     .fragment-text,
-    .lower p {
+    .lower p,
+    .contact-block p {
       margin: 0;
       font-size: 1rem;
       line-height: 1.82;
       color: #b88d57;
     }
 
-    form {
-      margin-top: 28px;
+    .contact-block {
+      margin-top: 22px;
       display: grid;
-      gap: 14px;
+      gap: 18px;
     }
 
-    label {
-      font-size: 0.64rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: inline-block;
-      margin-bottom: 8px;
+    .contact-line {
+      font-size: 1.02rem;
+      line-height: 1.8;
     }
 
-    textarea {
-      width: 100%;
-      min-height: 136px;
-      resize: vertical;
-      border: 1px solid var(--line-strong);
-      background: rgba(12, 11, 10, 0.52);
+    .contact-line a,
+    footer a {
       color: var(--ink);
-      padding: 16px 18px;
-      border-radius: 0;
-      outline: none;
-      font: inherit;
-      font-size: 1rem;
-      line-height: 1.72;
-      letter-spacing: 0.02em;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.01);
-    }
-
-    textarea::placeholder {
-      color: #7a6040;
-    }
-
-    textarea:focus {
-      border-color: rgba(198, 160, 106, 0.4);
-      background: rgba(12, 11, 10, 0.6);
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    button,
-    .ghost-link {
-      appearance: none;
-      border-radius: 0;
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,0.014);
-      color: var(--ink);
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      font-size: 0.68rem;
-      padding: 13px 18px;
-      cursor: pointer;
       text-decoration: none;
-      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
-      font-family: inherit;
+      border-bottom: 1px solid rgba(198, 160, 106, 0.24);
+      transition: border-color 160ms ease, color 160ms ease;
     }
 
-    button:hover,
-    .ghost-link:hover {
-      background: rgba(198, 160, 106, 0.05);
-      border-color: rgba(198, 160, 106, 0.42);
-    }
-
-    button:active,
-    .ghost-link:active {
-      transform: translateY(1px);
+    .contact-line a:hover,
+    footer a:hover {
+      border-color: rgba(198, 160, 106, 0.6);
+      color: #d7b07a;
     }
 
     .micro-note {
@@ -491,12 +440,6 @@
       .rest-line {
         width: 90px;
       }
-
-      button,
-      .ghost-link {
-        width: 100%;
-        text-align: center;
-      }
     }
   </style>
 </head>
@@ -518,8 +461,8 @@
     </header>
 
     <!--
-      IMPORTANT:
-      Put your two image files in the same folder as index.html and name them exactly:
+      Place these two files in the same folder as index.html:
+
       1. bridge-mark.png
       2. plumb.png
     -->
@@ -528,175 +471,4 @@
         <img src="bridge-mark.png" alt="Bridge mark" class="bridge-mark" />
         <div class="plumb-system">
           <div class="cord"></div>
-          <img src="plumb.png" alt="Plumb bob" class="plumb" />
-          <div class="rest-line"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="intro-grid">
-      <article class="panel">
-        <div class="section-label">Node 001 — Baseline</div>
-        <p class="lede">
-          The system appears stable until pressure is applied. What holds remains. What does not remains visible.
-        </p>
-      </article>
-
-      <aside class="panel small-block">
-        <div><span class="section-label">Condition</span><br />Baseline established. Noise reduced.</div>
-        <div><span class="section-label">Contact</span><br />bridge@bridgeforensiclogic.com</div>
-        <div><span class="section-label">Channel</span><br />Copy channel transmit.</div>
-      </aside>
-    </section>
-
-    <section class="signal-shell" aria-label="Signal intake and fragment return">
-      <section class="signal-panel">
-        <div class="signal-copy">
-          <div class="section-label">Receipt Surface</div>
-          <h2>Enter Signal</h2>
-          <p>
-            Place a condition into the field. No analysis is promised. No conclusion is issued on entry.
-          </p>
-        </div>
-
-        <form id="signal-form">
-          <div>
-            <label for="signal">Input</label>
-            <textarea id="signal" name="signal" placeholder="Transmit condition. Submit signal. Place fragment."></textarea>
-          </div>
-
-          <div class="actions">
-            <button type="submit">Transmit</button>
-            <button type="button" id="clear-btn">Reset</button>
-            <a href="#fragment" class="ghost-link">View Fragment</a>
-          </div>
-
-          <div class="micro-note">
-            Signal is received as placed. Interpretation is withheld. Retention is conditional.
-          </div>
-        </form>
-      </section>
-
-      <section class="fragment-panel" id="fragment">
-        <div>
-          <div class="section-label">Fragment Return</div>
-          <h2>Fragment</h2>
-
-          <div class="fragment-box fragment-text" id="fragment-text">Awaiting transmission.
-
-No fragment retained.</div>
-
-          <div class="fragment-meta">
-            <div class="meta-cell">Status<strong id="status">Idle</strong></div>
-            <div class="meta-cell">Channel<strong id="channel">Open</strong></div>
-            <div class="meta-cell">Retention<strong id="retention">Pending</strong></div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section class="lower">
-      <article class="panel">
-        <div class="section-label">Entry</div>
-        <p>
-          This surface is not a dashboard and does not perform certainty. It receives input, exposes condition, and leaves resolution incomplete where resolution does not hold.
-        </p>
-      </article>
-
-      <article class="panel">
-        <div class="section-label">Archive</div>
-        <p>
-          The page is treated as retained material rather than a bright interface. It should feel handled, printed, stored, and returned to use without belonging to any single moment.
-        </p>
-      </article>
-    </section>
-
-    <footer>
-      <div>BridgeForensicLogic.com</div>
-      <div class="quiet">Request Access</div>
-      <div class="quiet">Contact@BridgeForensicLogic.com</div>
-    </footer>
-  </main>
-
-  <script>
-    const form = document.getElementById("signal-form");
-    const input = document.getElementById("signal");
-    const fragmentText = document.getElementById("fragment-text");
-    const statusEl = document.getElementById("status");
-    const channelEl = document.getElementById("channel");
-    const retentionEl = document.getElementById("retention");
-    const clearBtn = document.getElementById("clear-btn");
-
-    function buildFragment(value) {
-      const trimmed = value.trim();
-
-      if (!trimmed) {
-        return {
-          text: "Awaiting transmission.\n\nNo fragment retained.",
-          status: "Idle",
-          channel: "Open",
-          retention: "Pending"
-        };
-      }
-
-      const length = trimmed.length;
-      const hasDivision = /,|;|:|\-|\n/.test(trimmed);
-      const hasQuestion = /\?/.test(trimmed);
-      const words = trimmed.split(/\s+/).filter(Boolean).length;
-
-      let line2 = "Condition unstable.";
-      let line3 = "Record partial.";
-      let status = "Received";
-      let channel = "Active";
-      let retention = "Conditional";
-
-      if (hasQuestion) {
-        line2 = "Condition remains unresolved.";
-        line3 = "Further measure required.";
-        status = "Open";
-        retention = "Withheld";
-      } else if (hasDivision || words > 18) {
-        line2 = "Pattern does not retain intact.";
-        line3 = "Division exposes drift.";
-        status = "Fractured";
-        retention = "Partial";
-      } else if (length < 20) {
-        line2 = "Signal insufficient for closure.";
-        line3 = "Record remains provisional.";
-        status = "Thin";
-        retention = "Pending";
-      }
-
-      return {
-        text: `Signal received.\n\n${line2}\n${line3}`,
-        status,
-        channel,
-        retention
-      };
-    }
-
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const fragment = buildFragment(input.value);
-      fragmentText.textContent = fragment.text;
-      statusEl.textContent = fragment.status;
-      channelEl.textContent = fragment.channel;
-      retentionEl.textContent = fragment.retention;
-      document.getElementById("fragment").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-
-    clearBtn.addEventListener("click", function () {
-      input.value = "";
-      const fragment = buildFragment("");
-      fragmentText.textContent = fragment.text;
-      statusEl.textContent = fragment.status;
-      channelEl.textContent = fragment.channel;
-      retentionEl.textContent = fragment.retention;
-      input.focus();
-    });
-  </script>
-</body>
-</html>
+          <img src="plumb.png" alt="Plumb bob"
