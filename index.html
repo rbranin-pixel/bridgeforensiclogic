@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bridge Forensic Logic</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
@@ -18,8 +21,6 @@
       --muted: #8e6d46;
       --line: rgba(198, 160, 106, 0.14);
       --line-strong: rgba(198, 160, 106, 0.28);
-      --panel: rgba(18, 17, 15, 0.68);
-      --panel-deep: rgba(14, 13, 12, 0.82);
       --shadow: rgba(0, 0, 0, 0.35);
     }
 
@@ -321,7 +322,8 @@
     }
 
     .contact-line a,
-    footer a {
+    footer a,
+    .small-block a {
       color: var(--ink);
       text-decoration: none;
       border-bottom: 1px solid rgba(198, 160, 106, 0.24);
@@ -329,7 +331,8 @@
     }
 
     .contact-line a:hover,
-    footer a:hover {
+    footer a:hover,
+    .small-block a:hover {
       border-color: rgba(198, 160, 106, 0.6);
       color: #d7b07a;
     }
@@ -461,15 +464,133 @@
     </header>
 
     <!--
-      Place these two files in the same folder as index.html:
+      IMAGE ASSET NAMES
+      Put these two files in the same folder as index.html:
 
       1. bridge-mark.png
       2. plumb.png
+
+      PHOTO / IMAGE PROMPT — bridge-mark.png
+      Front-facing archival symbol mark.
+      Muted brass linework on transparent background.
+      Geometric bridge motif with strict symmetry, technical clarity,
+      industrial-forensic tone, no glow, no ornament, no drop shadow,
+      flat documentation style, crisp edges, centered composition.
+
+      PHOTO / IMAGE PROMPT — plumb.png
+      Front-facing brushed brass plumb bob on transparent background.
+      Clean silhouette, subtle wear from handling, no decorative engraving,
+      museum documentation lighting, centered, isolated, no perspective drama,
+      industrial archival tone.
     -->
     <section class="bfl-mark-wrap" aria-label="Bridge and plumb mark">
       <div class="bfl-mark">
-        <img src="bridge-mark.png" alt="Bridge mark" class="bridge-mark" />
+        <img
+          src="bridge-mark.png"
+          alt="Bridge mark"
+          class="bridge-mark"
+          onerror="this.style.display='none';"
+        />
         <div class="plumb-system">
           <div class="cord"></div>
-          <img src="plumb.png" alt="Plumb bob"
+          <img
+            src="plumb.png"
+            alt="Plumb bob"
+            class="plumb"
+            onerror="this.style.display='none';"
+          />
+          <div class="rest-line"></div>
+        </div>
+      </div>
+    </section>
 
+    <section class="intro-grid">
+      <article class="panel">
+        <div class="section-label">Node 001 — Baseline</div>
+        <p class="lede">
+          The system appears stable until pressure is applied. What holds remains. What does not remains visible.
+        </p>
+      </article>
+
+      <aside class="panel small-block">
+        <div><span class="section-label">Condition</span><br />Baseline established. Noise reduced.</div>
+        <div><span class="section-label">Signal / Field Contact</span><br /><a href="mailto:bridge@bridgeforensiclogic.com">bridge@bridgeforensiclogic.com</a></div>
+        <div><span class="section-label">Administrative Contact</span><br /><a href="mailto:contact@bridgeforensiclogic.com">contact@bridgeforensiclogic.com</a></div>
+      </aside>
+    </section>
+
+    <section class="signal-shell" aria-label="Signal intake and fragment return">
+      <section class="signal-panel">
+        <div class="signal-copy">
+          <div class="section-label">Receipt Surface</div>
+          <h2>Place Signal</h2>
+          <p>
+            No automated intake is performed here. Signal is placed directly. Interpretation is withheld on entry.
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-line">
+            <span class="section-label">Primary Channel</span><br />
+            <a href="mailto:bridge@bridgeforensiclogic.com">
+              bridge@bridgeforensiclogic.com
+            </a>
+          </div>
+
+          <div class="contact-line">
+            <span class="section-label">Secondary Channel</span><br />
+            <a href="mailto:contact@bridgeforensiclogic.com">
+              contact@bridgeforensiclogic.com
+            </a>
+          </div>
+
+          <p class="micro-note">
+            Bridge is the field-facing channel. Contact is the administrative channel.
+          </p>
+        </div>
+      </section>
+
+      <section class="fragment-panel" id="fragment">
+        <div>
+          <div class="section-label">Fragment Return</div>
+          <h2>Condition</h2>
+
+          <div class="fragment-box fragment-text">No automated fragment is returned.
+
+Signal enters manually.
+Response, where issued, is deliberate.
+Retention remains conditional.</div>
+
+          <div class="fragment-meta">
+            <div class="meta-cell">Status<strong>Manual</strong></div>
+            <div class="meta-cell">Channel<strong>Direct</strong></div>
+            <div class="meta-cell">Retention<strong>Conditional</strong></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="lower">
+      <article class="panel">
+        <div class="section-label">Entry</div>
+        <p>
+          This surface is not a dashboard and does not perform certainty. It receives contact, exposes condition, and leaves resolution incomplete where resolution does not hold.
+        </p>
+      </article>
+
+      <article class="panel">
+        <div class="section-label">Archive</div>
+        <p>
+          The page is treated as retained material rather than a bright interface. It should feel handled, printed, stored, and returned to use without belonging to any single moment.
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      <div>BridgeForensicLogic.com</div>
+      <div class="quiet"><a href="mailto:bridge@bridgeforensiclogic.com">bridge@bridgeforensiclogic.com</a></div>
+      <div class="quiet"><a href="mailto:contact@bridgeforensiclogic.com">contact@bridgeforensiclogic.com</a></div>
+    </footer>
+  </main>
+</body>
+</html>
