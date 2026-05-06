@@ -3,39 +3,153 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Bridge Forensic Logic</title>
+
   <style>
     body {
       margin: 0;
-      background: #080706;
-      color: #d6c49a;
+      background: #070707;
+      color: #d2c29a;
       font-family: Georgia, serif;
-      display: grid;
-      place-items: center;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(92%, 1200px);
+      margin: 0 auto;
+    }
+
+    header {
       min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding: 2rem 0;
     }
-    img {
-      max-width: 180px;
-      margin-bottom: 2rem;
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
     }
+
+    .logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .logos img {
+      width: min(180px, 40vw);
+      height: auto;
+      opacity: 0.95;
+    }
+
     h1 {
-      letter-spacing: 0.12em;
-      font-size: 2rem;
       margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: 0.18em;
+      font-weight: normal;
     }
-    p {
-      color: #b8aa86;
+
+    .subtitle {
       font-size: 1rem;
+      letter-spacing: 0.25em;
+      color: #9f9476;
+      text-transform: uppercase;
+    }
+
+    .inscription {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #b8aa86;
+      max-width: 700px;
+      line-height: 1.8;
+    }
+
+    .divider {
+      width: 120px;
+      height: 1px;
+      background: #7b6f52;
+      margin: 2rem auto;
+    }
+
+    .archive-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .archive-links a {
+      color: #d2c29a;
+      text-decoration: none;
+      border: 1px solid #7b6f52;
+      padding: 0.9rem 1.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: all 0.25s ease;
+    }
+
+    .archive-links a:hover {
+      background: #d2c29a;
+      color: #070707;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #756a53;
+      font-size: 0.85rem;
       letter-spacing: 0.08em;
     }
   </style>
 </head>
+
 <body>
-  <main>
-    <img src="bridge-mark.png" alt="Bridge Forensic Logic mark">
-    <h1>BRIDGE FORENSIC LOGIC</h1>
-    <p>ONLY WHAT SURVIVES CONSTRAINT PERSISTS.</p>
-  </main>
+
+<header>
+  <div class="container">
+    <div class="hero">
+
+      <div class="logos">
+        <img src="bridge-mark.png" alt="Bridge Forensic Logic Bridge Mark">
+        <img src="plumb-mark.png" alt="Bridge Forensic Logic Plumb Mark">
+      </div>
+
+      <div>
+        <h1>BRIDGE FORENSIC LOGIC</h1>
+
+        <div class="divider"></div>
+
+        <div class="subtitle">
+          Signal • Structure • Record
+        </div>
+
+        <div class="inscription">
+          Only what survives constraint persists.
+        </div>
+      </div>
+
+      <div class="archive-links">
+        <a href="#">ENTER ARCHIVE</a>
+        <a href="#">SUBSTANCE AND SHADOWS</a>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<footer>
+  RECORD PERSISTS
+</footer>
+
 </body>
 </html>
