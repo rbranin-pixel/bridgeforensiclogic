@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,7 @@
     }
 
     .container {
-      width: min(92%, 1200px);
+      width: min(92%, 1100px);
       margin: 0 auto;
     }
 
@@ -38,16 +39,15 @@
 
     .logos {
       display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 3rem;
       flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
     }
 
     .logos img {
       width: min(180px, 40vw);
       height: auto;
-      opacity: 0.95;
     }
 
     h1 {
@@ -58,18 +58,10 @@
     }
 
     .subtitle {
-      font-size: 1rem;
-      letter-spacing: 0.25em;
       color: #9f9476;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-    }
-
-    .inscription {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-      color: #b8aa86;
-      max-width: 700px;
-      line-height: 1.8;
+      font-size: 0.95rem;
     }
 
     .divider {
@@ -79,28 +71,74 @@
       margin: 2rem auto;
     }
 
-    .archive-links {
+    .inscription {
+      color: #b8aa86;
+      max-width: 700px;
+      line-height: 1.8;
+      margin: 1rem auto;
+    }
+
+    .links {
       display: flex;
-      justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
       flex-wrap: wrap;
+      justify-content: center;
       margin-top: 2rem;
     }
 
-    .archive-links a {
+    .links a {
       color: #d2c29a;
       text-decoration: none;
-      border: 1px solid #7b6f52;
+      border: 1px solid #6f6347;
       padding: 0.9rem 1.4rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       font-size: 0.85rem;
-      transition: all 0.25s ease;
+      transition: 0.25s ease;
     }
 
-    .archive-links a:hover {
+    .links a:hover {
       background: #d2c29a;
       color: #070707;
+    }
+
+    .section {
+      padding: 5rem 1.5rem;
+      border-top: 1px solid #2d281d;
+    }
+
+    .section h2 {
+      text-align: center;
+      letter-spacing: 0.16em;
+      font-weight: normal;
+      margin-bottom: 2rem;
+    }
+
+    .section p {
+      max-width: 760px;
+      margin: 1rem auto;
+      line-height: 1.8;
+      text-align: center;
+      color: #b8aa86;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      border: 1px solid #5d523c;
+      background: #0d0c0a;
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      letter-spacing: 0.12em;
+      font-weight: normal;
     }
 
     footer {
@@ -115,41 +153,112 @@
 
 <body>
 
-<header>
-  <div class="container">
-    <div class="hero">
+  <header>
+    <div class="container">
 
-      <div class="logos">
-        <img src="bridge-mark.png" alt="Bridge Forensic Logic Bridge Mark">
-        <img src="plumb-mark.png" alt="Bridge Forensic Logic Plumb Mark">
-      </div>
+      <div class="hero">
 
-      <div>
-        <h1>BRIDGE FORENSIC LOGIC</h1>
-
-        <div class="divider"></div>
-
-        <div class="subtitle">
-          Signal • Structure • Record
+        <div class="logos">
+          <img src="bridge-mark.png" alt="Bridge Mark">
+          <img src="plumb-mark.png" alt="Plumb Mark">
         </div>
 
-        <div class="inscription">
-          Only what survives constraint persists.
-        </div>
-      </div>
+        <div>
+          <h1>BRIDGE FORENSIC LOGIC</h1>
 
-      <div class="archive-links">
-        <a href="#">ENTER ARCHIVE</a>
-        <a href="#">SUBSTANCE AND SHADOWS</a>
+          <div class="divider"></div>
+
+          <div class="subtitle">
+            Signal • Structure • Record
+          </div>
+
+          <p class="inscription">
+            Only what survives constraint persists.
+          </p>
+        </div>
+
+        <div class="links">
+          <a href="#archive">Enter Archive</a>
+          <a href="#substance">Substance and Shadows</a>
+        </div>
+
       </div>
 
     </div>
-  </div>
-</header>
+  </header>
 
-<footer>
-  RECORD PERSISTS
-</footer>
+  <section id="archive" class="section">
+
+    <div class="container">
+
+      <h2>THE ARCHIVE</h2>
+
+      <p>
+        Bridge Forensic Logic is an independent conceptual archive exploring
+        signal, structure, perception, synchronization, failure, embodiment,
+        and durable record.
+      </p>
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>PLATES</h3>
+          <p>
+            Visual records of alignment, drift, thresholds, systems,
+            embodiment, and persistence under load.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>DISPATCHES</h3>
+          <p>
+            Fragments, field notes, procedural writings, and observations
+            from the archive.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>INSTRUMENTS</h3>
+          <p>
+            The Loupe. The Plumb. The Razor. The Inking Stone.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="substance" class="section">
+
+    <div class="container">
+
+      <h2>SUBSTANCE AND SHADOWS</h2>
+
+      <p>
+        A conceptual music series exploring separation, scrutiny,
+        synchronization, authorship, desire, and the structures beneath
+        appearance.
+      </p>
+
+      <p>
+        Created through AI-assisted composition under human direction,
+        writing, and curation.
+      </p>
+
+      <p class="inscription">
+        RECORD PERSISTS.
+      </p>
+
+    </div>
+
+  </section>
+
+  <footer>
+    RECORD PERSISTS
+  </footer>
 
 </body>
+
 </html>
