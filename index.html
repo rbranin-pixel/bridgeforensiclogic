@@ -4,149 +4,386 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Bridge Forensic Logic</title>
 
   <style>
+    :root {
+      --gold: #b88a23;
+      --gold-dark: #8a6515;
+      --black: #080808;
+      --ink: #151515;
+      --soft: #faf8f3;
+      --paper: #f2efe7;
+      --line: #d8d1c3;
+      --muted: #6d675d;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: #070707;
-      color: #d2c29a;
-      font-family: Georgia, serif;
-      overflow-x: hidden;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
     }
 
     .container {
-      width: min(92%, 1100px);
+      width: min(92%, 1180px);
       margin: 0 auto;
     }
 
     header {
-      min-height: 100vh;
+      background: rgba(250, 248, 243, 0.96);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      min-height: 82px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      padding: 0.8rem 0;
+    }
+
+    .brand {
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem 0;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand img {
+      width: 58px;
+      height: auto;
+      display: block;
+    }
+
+    .brand-title {
+      font-family: Georgia, "Times New Roman", serif;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 1.05rem;
+    }
+
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--gold-dark);
     }
 
     .hero {
-      display: flex;
-      flex-direction: column;
+      min-height: calc(100vh - 82px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
       align-items: center;
-      gap: 2rem;
+      gap: 4rem;
+      padding: 5rem 0;
     }
 
-    .logos {
-      display: flex;
-      gap: 3rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .logos img {
-      width: min(180px, 40vw);
-      height: auto;
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--gold-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
     }
 
     h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(3rem, 7vw, 6.8rem);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
       margin: 0;
-      font-size: clamp(2rem, 5vw, 4rem);
-      letter-spacing: 0.18em;
-      font-weight: normal;
     }
 
-    .subtitle {
-      color: #9f9476;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      font-size: 0.95rem;
+    .tagline {
+      margin-top: 1.6rem;
+      font-size: clamp(1.12rem, 2vw, 1.48rem);
+      color: #3b3934;
+      max-width: 720px;
     }
 
-    .divider {
-      width: 120px;
-      height: 1px;
-      background: #7b6f52;
-      margin: 2rem auto;
+    .gold-line {
+      width: 130px;
+      height: 2px;
+      background: var(--gold);
+      margin: 2rem 0;
     }
 
-    .inscription {
-      color: #b8aa86;
-      max-width: 700px;
-      line-height: 1.8;
-      margin: 1rem auto;
-    }
-
-    .links {
+    .actions {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-      justify-content: center;
       margin-top: 2rem;
     }
 
-    .links a {
-      color: #d2c29a;
+    .button {
+      display: inline-block;
       text-decoration: none;
-      border: 1px solid #6f6347;
-      padding: 0.9rem 1.4rem;
-      letter-spacing: 0.12em;
       text-transform: uppercase;
-      font-size: 0.85rem;
-      transition: 0.25s ease;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.95rem 1.25rem;
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      background: transparent;
     }
 
-    .links a:hover {
-      background: #d2c29a;
-      color: #070707;
+    .button.primary {
+      background: var(--gold);
+      color: white;
     }
 
-    .section {
-      padding: 5rem 1.5rem;
-      border-top: 1px solid #2d281d;
+    .button:hover {
+      background: var(--black);
+      border-color: var(--black);
+      color: white;
     }
 
-    .section h2 {
-      text-align: center;
-      letter-spacing: 0.16em;
-      font-weight: normal;
-      margin-bottom: 2rem;
+    .hero-mark {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .section p {
-      max-width: 760px;
-      margin: 1rem auto;
-      line-height: 1.8;
-      text-align: center;
-      color: #b8aa86;
+    .hero-mark img {
+      width: min(100%, 470px);
+      height: auto;
+      filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.08));
+    }
+
+    section {
+      padding: 5.5rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      max-width: 840px;
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 1.05;
+      margin: 0 0 1rem;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin: 0;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
     }
 
     .card {
-      border: 1px solid #5d523c;
-      background: #0d0c0a;
-      padding: 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 2rem;
+      min-height: 230px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
     }
 
     .card h3 {
+      margin: 0 0 1rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .step {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 1.4rem 1.5rem;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .step strong {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .step span {
+      color: var(--muted);
+    }
+
+    .dark-band {
+      background: var(--black);
+      color: var(--paper);
+    }
+
+    .dark-band .section-head p,
+    .dark-band p {
+      color: #c4bbab;
+    }
+
+    .dark-band strong {
+      color: var(--paper);
+    }
+
+    .boundary-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .boundary-box {
+      border: 1px solid #3a3427;
+      padding: 1.5rem;
+      background: #101010;
+    }
+
+    .boundary-box h3 {
       margin-top: 0;
-      letter-spacing: 0.12em;
-      font-weight: normal;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 2.5rem;
+    }
+
+    .contact-panel img {
+      width: 120px;
+      height: auto;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-panel a {
+      color: var(--ink);
+      text-decoration-color: var(--gold);
+      text-underline-offset: 4px;
     }
 
     footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #756a53;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
       font-size: 0.85rem;
       letter-spacing: 0.08em;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 850px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 4rem 0;
+      }
+
+      .hero-mark {
+        order: -1;
+      }
+
+      .hero-mark img {
+        width: min(80%, 360px);
+      }
+
+      .grid,
+      .process,
+      .boundary-list,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -154,109 +391,198 @@
 <body>
 
   <header>
-    <div class="container">
-
-      <div class="hero">
-
-        <div class="logos">
-          <img src="bridge-mark.png" alt="Bridge Mark">
-          <img src="plumb-mark.png" alt="Plumb Mark">
-        </div>
-
+    <div class="container nav">
+      <a class="brand" href="#">
+        <img src="bridge-mark.png" alt="Bridge Forensic Logic mark">
         <div>
-          <h1>BRIDGE FORENSIC LOGIC</h1>
-
-          <div class="divider"></div>
-
-          <div class="subtitle">
-            Signal • Structure • Record
-          </div>
-
-          <p class="inscription">
-            Only what survives constraint persists.
-          </p>
+          <div class="brand-title">Bridge Forensic Logic</div>
+          <div class="brand-subtitle">Complex records, made legible.</div>
         </div>
+      </a>
 
-        <div class="links">
-          <a href="#archive">Enter Archive</a>
-          <a href="#substance">Substance and Shadows</a>
-        </div>
-
-      </div>
-
+      <nav aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#boundaries">Boundaries</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
   </header>
 
-  <section id="archive" class="section">
+  <main>
 
-    <div class="container">
+    <section class="hero container">
+      <div>
+        <div class="eyebrow">Chronology • Record Organization • Claims-Support Packets</div>
 
-      <h2>THE ARCHIVE</h2>
+        <h1>Complex records.<br>Clear sequence.</h1>
 
-      <p>
-        Bridge Forensic Logic is an independent conceptual archive exploring
-        signal, structure, perception, synchronization, failure, embodiment,
-        and durable record.
-      </p>
+        <div class="gold-line"></div>
 
-      <div class="grid">
+        <p class="tagline">
+          Bridge Forensic Logic organizes complex medical, insurance, and administrative records
+          into clearer chronologies, source indexes, missing-record checklists, and claim-support packet structures.
+        </p>
 
-        <div class="card">
-          <h3>PLATES</h3>
-          <p>
-            Visual records of alignment, drift, thresholds, systems,
-            embodiment, and persistence under load.
-          </p>
+        <div class="actions">
+          <a class="button primary" href="#contact">Request Access</a>
+          <a class="button" href="#services">View Services</a>
         </div>
-
-        <div class="card">
-          <h3>DISPATCHES</h3>
-          <p>
-            Fragments, field notes, procedural writings, and observations
-            from the archive.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>INSTRUMENTS</h3>
-          <p>
-            The Loupe. The Plumb. The Razor. The Inking Stone.
-          </p>
-        </div>
-
       </div>
 
-    </div>
+      <div class="hero-mark">
+        <img src="bridge-mark.png" alt="Bridge Forensic Logic symbol">
+      </div>
+    </section>
 
-  </section>
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Services</div>
+          <h2>Records made harder to misunderstand.</h2>
+          <p>
+            BFL does not argue your claim for you. BFL separates the events, builds the sequence,
+            indexes the sources, identifies what is missing, and returns a clearer packet.
+          </p>
+        </div>
 
-  <section id="substance" class="section">
+        <div class="grid">
+          <div class="card">
+            <h3>Record Triage</h3>
+            <p>
+              A first-pass review that separates document types, identifies key dates,
+              and flags obvious gaps, duplications, missing records, or confusing document clusters.
+            </p>
+          </div>
 
-    <div class="container">
+          <div class="card">
+            <h3>Event Chronology</h3>
+            <p>
+              A date-ordered sequence of events with source-document references,
+              helping distinguish separate admissions, claims, bills, notices, and decisions.
+            </p>
+          </div>
 
-      <h2>SUBSTANCE AND SHADOWS</h2>
+          <div class="card">
+            <h3>Packet Architecture</h3>
+            <p>
+              A structured claim-support packet with chronology, source index,
+              missing-record checklist, and plain-language administrative summary.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <p>
-        A conceptual music series exploring separation, scrutiny,
-        synchronization, authorship, desire, and the structures beneath
-        appearance.
-      </p>
+    <section id="process">
+      <div class="container process">
+        <div class="section-head">
+          <div class="eyebrow">Process</div>
+          <h2>Structure. Sequence. Clarity. Trust.</h2>
+          <p>
+            The work is procedural: preserve the record, reduce confusion, and make the sequence visible.
+          </p>
+        </div>
 
-      <p>
-        Created through AI-assisted composition under human direction,
-        writing, and curation.
-      </p>
+        <div class="steps">
+          <div class="step">
+            <strong>Receive</strong>
+            <span>Client provides records, deadlines, event/date range, known missing items, and the specific administrative goal.</span>
+          </div>
 
-      <p class="inscription">
-        RECORD PERSISTS.
-      </p>
+          <div class="step">
+            <strong>Separate</strong>
+            <span>Documents are grouped by medical, insurance, billing, employment, and administrative event.</span>
+          </div>
 
-    </div>
+          <div class="step">
+            <strong>Sequence</strong>
+            <span>Events are placed into a readable chronology with source-document references and visible gaps.</span>
+          </div>
 
-  </section>
+          <div class="step">
+            <strong>Return</strong>
+            <span>BFL returns a clearer packet for client review, correction, and final use.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="boundaries" class="dark-band">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Boundaries</div>
+          <h2>Record clarity, not legal or medical advice.</h2>
+          <p>
+            Bridge Forensic Logic is not a law firm, medical provider, insurer, financial advisor,
+            claims administrator, or expert witness service.
+          </p>
+        </div>
+
+        <div class="boundary-list">
+          <div class="boundary-box">
+            <h3>BFL Does</h3>
+            <p>
+              Organize client-provided records, separate distinct events, build chronologies,
+              index source documents, identify missing or incomplete records, and prepare clearer packet structures.
+            </p>
+          </div>
+
+          <div class="boundary-box">
+            <h3>BFL Does Not</h3>
+            <p>
+              Diagnose, recommend treatment, determine disability, evaluate legal rights, determine claims,
+              guarantee outcomes, or create unsupported facts.
+            </p>
+          </div>
+        </div>
+
+        <p style="margin-top: 2rem;">
+          Client records are used only for the agreed record-clarity service. BFL does not use client records,
+          client facts, or client documents for art, marketing, public examples, or unrelated projects without
+          separate written permission.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-panel">
+        <div>
+          <img src="plumb-mark.png" alt="BFL plumb mark">
+          <div class="eyebrow">Contact</div>
+          <h2>Begin with the record.</h2>
+          <p>
+            For record-clarity inquiries, provide the event/date range, document types,
+            deadline, and desired administrative use.
+          </p>
+        </div>
+
+        <div>
+          <p>
+            <strong>Email:</strong><br>
+            <a href="mailto:contact@bridgeforensiclogic.com">contact@bridgeforensiclogic.com</a>
+          </p>
+
+          <p>
+            <strong>Web:</strong><br>
+            BridgeForensicLogic.com
+          </p>
+
+          <p>
+            <strong>Operating phrase:</strong><br>
+            Complex records, made legible.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    RECORD PERSISTS
+    <div class="container footer-inner">
+      <div>© Bridge Forensic Logic</div>
+      <div>ONLY WHAT SURVIVES CONSTRAINT PERSISTS.</div>
+    </div>
   </footer>
 
 </body>
