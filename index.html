@@ -191,6 +191,11 @@
     section {
       padding: 5.5rem 0;
       border-top: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    section:nth-of-type(even) {
+      background: var(--paper);
     }
 
     .section-head {
@@ -257,6 +262,7 @@
       background: var(--white);
       border: 1px solid var(--line);
       padding: 1.4rem 1.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
     }
 
     .step::before {
@@ -280,20 +286,6 @@
       color: var(--muted);
     }
 
-    .dark-band {
-      background: var(--black);
-      color: var(--paper);
-    }
-
-    .dark-band .section-head p,
-    .dark-band p {
-      color: #c4bbab;
-    }
-
-    .dark-band strong {
-      color: var(--paper);
-    }
-
     .boundary-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -302,9 +294,10 @@
     }
 
     .boundary-box {
-      border: 1px solid #3a3427;
+      border: 1px solid var(--line);
       padding: 1.5rem;
-      background: #101010;
+      background: var(--white);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
     }
 
     .boundary-box h3 {
@@ -313,7 +306,18 @@
       font-weight: 400;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-dark);
+    }
+
+    .boundary-box p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .note {
+      margin-top: 2rem;
+      color: var(--muted);
+      max-width: 980px;
     }
 
     .contact-panel {
@@ -324,6 +328,7 @@
       background: var(--white);
       border: 1px solid var(--line);
       padding: 2.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
     }
 
     .contact-panel img {
@@ -344,6 +349,7 @@
       color: var(--muted);
       font-size: 0.85rem;
       letter-spacing: 0.08em;
+      background: var(--soft);
     }
 
     .footer-inner {
@@ -508,7 +514,7 @@
       </div>
     </section>
 
-    <section id="boundaries" class="dark-band">
+    <section id="boundaries">
       <div class="container">
         <div class="section-head">
           <div class="eyebrow">Boundaries</div>
@@ -532,12 +538,12 @@
             <h3>BFL Does Not</h3>
             <p>
               Diagnose, recommend treatment, determine disability, evaluate legal rights, determine claims,
-              guarantee outcomes, or create unsupported facts.
+              guarantee outcomes, contact third parties unless separately agreed, or create unsupported facts.
             </p>
           </div>
         </div>
 
-        <p style="margin-top: 2rem;">
+        <p class="note">
           Client records are used only for the agreed record-clarity service. BFL does not use client records,
           client facts, or client documents for art, marketing, public examples, or unrelated projects without
           separate written permission.
