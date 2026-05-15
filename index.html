@@ -6,6 +6,7 @@
   <title>Bridge Forensic Logic | Record Architecture & Chronology</title>
   <meta name="description" content="Bridge Forensic Logic organizes complex medical, insurance, billing, employment, and administrative records into clearer chronologies, source indexes, missing-record checklists, and packet structures.">
 
+
   <style>
     :root {
       --gold: #c99622;
@@ -18,9 +19,12 @@
       --white: #ffffff;
     }
 
+
     * { box-sizing: border-box; }
 
+
     html { scroll-behavior: smooth; }
+
 
     body {
       margin: 0;
@@ -30,16 +34,19 @@
       line-height: 1.6;
     }
 
+
     img {
       max-width: 100%;
       height: auto;
       display: block;
     }
 
+
     header {
       border-bottom: 1px solid var(--line);
       background: var(--white);
     }
+
 
     .topbar {
       max-width: 1100px;
@@ -51,6 +58,7 @@
       gap: 24px;
     }
 
+
     .brand {
       display: flex;
       align-items: center;
@@ -61,9 +69,11 @@
       letter-spacing: 0.03em;
     }
 
+
     .brand img {
       width: 34px;
     }
+
 
     nav {
       display: flex;
@@ -72,14 +82,17 @@
       font-size: 0.92rem;
     }
 
+
     nav a {
       color: var(--ink);
       text-decoration: none;
     }
 
+
     nav a:hover {
       color: var(--gold-dark);
     }
+
 
     .hero {
       max-width: 980px;
@@ -88,15 +101,19 @@
       text-align: center;
     }
 
-    .hero-mark {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto 28px;
-    }
+.hero-mark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 30px;
+}
 
-    .hero-mark img {
-      width: min(260px, 70vw);
-    }
+
+.hero-mark img {
+  width: min(360px, 82vw);
+  max-height: 220px;
+  object-fit: contain;
+}
 
     .hero-kicker {
       margin: 0 0 14px;
@@ -107,6 +124,7 @@
       font-weight: 700;
     }
 
+
     h1 {
       margin: 0;
       font-size: clamp(2.4rem, 6vw, 4.8rem);
@@ -115,12 +133,14 @@
       color: var(--black);
     }
 
+
     .hero p.lede {
       max-width: 760px;
       margin: 24px auto 0;
       font-size: 1.15rem;
       color: var(--muted);
     }
+
 
     .actions {
       margin-top: 34px;
@@ -129,6 +149,7 @@
       gap: 14px;
       flex-wrap: wrap;
     }
+
 
     .button {
       display: inline-block;
@@ -139,20 +160,24 @@
       border: 1px solid var(--black);
     }
 
+
     .button.primary {
       background: var(--black);
       color: var(--white);
     }
+
 
     .button.secondary {
       background: var(--white);
       color: var(--black);
     }
 
+
     main {
       background: var(--paper);
       border-top: 1px solid var(--line);
     }
+
 
     section {
       max-width: 1100px;
@@ -161,12 +186,14 @@
       border-bottom: 1px solid var(--line);
     }
 
+
     h2 {
       margin: 0 0 18px;
       font-size: clamp(1.8rem, 4vw, 3rem);
       line-height: 1.1;
       color: var(--black);
     }
+
 
     .section-intro {
       max-width: 760px;
@@ -175,11 +202,13 @@
       margin-bottom: 30px;
     }
 
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
     }
+
 
     .card {
       background: var(--white);
@@ -188,16 +217,19 @@
       min-height: 180px;
     }
 
+
     .card h3 {
       margin: 0 0 10px;
       color: var(--black);
       font-size: 1.08rem;
     }
 
+
     .card p {
       margin: 0;
       color: var(--muted);
     }
+
 
     .process-list {
       display: grid;
@@ -205,37 +237,42 @@
       max-width: 860px;
     }
 
+
     .process-item {
       background: var(--white);
       border: 1px solid var(--line);
       padding: 20px 22px;
     }
 
+
     .process-item strong {
       color: var(--black);
     }
 
-    .boundary {
-      background: var(--black);
-      color: var(--white);
-      border-bottom: none;
-    }
+   .boundary {
+  background: var(--paper);
+  color: var(--ink);
+}
 
-    .boundary h2 {
-      color: var(--white);
-    }
 
-    .boundary .section-intro,
-    .boundary p {
-      color: #d9d4ca;
-    }
+.boundary h2 {
+  color: var(--black);
+}
 
-    .boundary-box {
-      border: 1px solid #4d4638;
-      padding: 24px;
-      background: #181818;
-      max-width: 900px;
-    }
+
+.boundary .section-intro,
+.boundary p {
+  color: var(--muted);
+}
+
+
+.boundary-box {
+  border: 1px solid var(--line);
+  padding: 24px;
+  background: var(--white);
+  max-width: 900px;
+}
+    
 
     .contact-box {
       background: var(--white);
@@ -244,10 +281,12 @@
       max-width: 760px;
     }
 
+
     .contact-box a {
       color: var(--gold-dark);
       font-weight: 700;
     }
+
 
     footer {
       background: var(--white);
@@ -257,19 +296,23 @@
       font-size: 0.9rem;
     }
 
+
     @media (max-width: 760px) {
       .topbar {
         flex-direction: column;
         align-items: flex-start;
       }
 
+
       nav {
         gap: 12px;
       }
 
+
       .grid {
         grid-template-columns: 1fr;
       }
+
 
       .hero {
         padding-top: 44px;
@@ -278,6 +321,7 @@
   </style>
 </head>
 
+
 <body>
   <header>
     <div class="topbar">
@@ -285,6 +329,7 @@
         <img src="assets/bridge-mark.png" alt="Bridge Forensic Logic mark">
         <span>Bridge Forensic Logic</span>
       </a>
+
 
       <nav aria-label="Primary navigation">
         <a href="#services">Services</a>
@@ -295,24 +340,30 @@
     </div>
   </header>
 
+
   <section class="hero">
     <div class="hero-mark">
       <img src="assets/bridge-mark.png" alt="Bridge Forensic Logic symbol">
     </div>
 
+
     <p class="hero-kicker">Chronology • Record Organization • Claims-Support Packets</p>
 
+
     <h1>Complex records, made legible.</h1>
+
 
     <p class="lede">
       Bridge Forensic Logic organizes medical, insurance, billing, employment, and administrative records into clearer chronologies, source-document indexes, missing-record checklists, and packet structures.
     </p>
+
 
     <div class="actions">
       <a class="button primary" href="#contact">Request Record Review</a>
       <a class="button secondary" href="#services">View Services</a>
     </div>
   </section>
+
 
   <main>
     <section id="services">
@@ -321,16 +372,19 @@
         BFL turns scattered records into a clearer working packet. The work is organizational, documentary, and source-based.
       </p>
 
+
       <div class="grid">
         <div class="card">
           <h3>Event Chronologies</h3>
           <p>Separate complex records into dated, readable sequences by event, admission, claim, issue, or review period.</p>
         </div>
 
+
         <div class="card">
           <h3>Source-Document Indexes</h3>
           <p>Create a reference map showing where key facts, dates, records, bills, letters, or forms appear in the source material.</p>
         </div>
+
 
         <div class="card">
           <h3>Missing-Record Checklists</h3>
@@ -339,11 +393,13 @@
       </div>
     </section>
 
+
     <section id="process">
       <h2>Process</h2>
       <p class="section-intro">
         The goal is not to argue the claim. The goal is to make the record harder to misunderstand.
       </p>
+
 
       <div class="process-list">
         <div class="process-item"><strong>1. Intake:</strong> You provide the goal, date range, known issue, and available documents.</div>
@@ -353,11 +409,13 @@
       </div>
     </section>
 
+
     <section id="boundaries" class="boundary">
       <h2>Boundaries</h2>
       <p class="section-intro">
         BFL is a record-clarity service. It is not a law firm, medical provider, insurer, financial advisor, claims administrator, or expert witness service.
       </p>
+
 
       <div class="boundary-box">
         <p>
@@ -369,11 +427,13 @@
       </div>
     </section>
 
+
     <section id="contact">
       <h2>Contact</h2>
       <p class="section-intro">
         For record organization, chronology support, or packet-structure inquiries, contact Bridge Forensic Logic.
       </p>
+
 
       <div class="contact-box">
         <p><strong>Bridge Forensic Logic, LLC</strong></p>
@@ -383,6 +443,7 @@
       </div>
     </section>
   </main>
+
 
   <footer>
     © Bridge Forensic Logic, LLC. Complex records, made legible.
